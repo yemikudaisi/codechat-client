@@ -25,8 +25,8 @@ public abstract class BaseComponentController implements Initializable {
     protected Pane pane;
 
     public Pane getPane() throws IOException {
+        System.out.println(this.getClass().getSimpleName());
         if(this.pane == null)
-
             this.pane = FXMLLoader.load(getClass().getResource(this.getClass().getSimpleName()+".fxml"));
 
         return this.pane;

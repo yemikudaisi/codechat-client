@@ -1,6 +1,7 @@
 package im.codechat.client.ui.main;
 
 import im.codechat.client.application.Globals;
+import im.codechat.client.core.ui.BaseComponentController;
 import im.codechat.client.core.ui.BaseController;
 import im.codechat.client.ui.components.ChatComponent;
 import javafx.application.Platform;
@@ -18,13 +19,13 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * The description for MainViewController class
+ * The description for MessengerComponent class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/18/2017
  */
-public class MainViewController extends BaseController {
+public class MessengerComponent extends BaseComponentController {
 
 
     @FXML
@@ -38,7 +39,8 @@ public class MainViewController extends BaseController {
     @FXML
     Pane masterPane;
 
-    public MainViewController(){
+    public MessengerComponent(){
+
         contactList = new ArrayList<>();
     }
 

@@ -2,14 +2,19 @@ package im.codechat.client.ui.login;
 
 import java.io.IOException;
 
+import com.anchorage.docks.node.DockNode;
+import com.anchorage.docks.stations.DockStation;
+import com.anchorage.system.AnchorageSystem;
 import im.codechat.client.application.Globals;
 import im.codechat.client.core.ui.BaseController;
-import im.codechat.client.ui.main.MainViewController;
+import im.codechat.client.ui.main.MessengerComponent;
 import im.codechat.client.xmpp.XMPPHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import rocks.xmpp.core.XmppException;
 
 /**
@@ -41,10 +46,21 @@ public class LoginViewController  extends BaseController {
     @FXML
     private void loginAction(ActionEvent ev){
         try{
-            MainViewController mainCtrl = new MainViewController();
+
+            MessengerComponent mainCtrl = new MessengerComponent();
             if(Globals.getXmppHandler().login(getLoginUsername(),getLoginPassword())){
+                DockStation station = AnchorageSystem.createStation();
+
+                Scene scene = new Scene(station, 1024, 768);
+                DockNode messengerNode = AnchorageSystem.createDock("Messenger", mainCtrl.getPane());
+                messengerNode.dock(station, DockNode.DockPosition.LEFT);
+                messengerNode.floatableProperty().set(false);
+                AnchorageSystem.installDefaultStyle();
+                Stage stage = new Stage();
+                stage.setTitle("CodeChat");
+                stage.setScene(scene);
+                stage.show();
                 this.tryClose();
-                mainCtrl.showView();
             }
             else{
                 setStatus("Login Failed");

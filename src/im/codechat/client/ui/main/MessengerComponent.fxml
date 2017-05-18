@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -14,16 +15,14 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.collections.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<?import java.lang.String?>
-<?import javafx.scene.layout.Pane?>
-<BorderPane prefHeight="594.0" prefWidth="796.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="594.0" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <MenuBar>
             <Menu mnemonicParsing="false" text="File">
@@ -38,8 +37,7 @@
         </MenuBar>
     </top>
    <center>
-      <SplitPane dividerPositions="0.3929471032745592" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <items>
+        <Pane prefHeight="569.0" prefWidth="290.0" BorderPane.alignment="CENTER">
             <VBox alignment="TOP_LEFT" maxWidth="-Infinity" minWidth="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="474.0" prefWidth="300.0">
                 <Text fx:id="loggedInUserName" fill="#0e548d" text="Yemi" StackPane.alignment="TOP_CENTER">
                   <font>
@@ -50,7 +48,7 @@
                   </VBox.margin></Text>
                 <ComboBox fx:id="comboPresence" promptText="Status">
                   <VBox.margin>
-                     <Insets left="5.0" />
+                     <Insets />
                   </VBox.margin>
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -62,20 +60,20 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <HBox prefHeight="73.0" prefWidth="309.0">
+                <HBox prefHeight="73.0" prefWidth="290.0">
                     <TextField alignment="TOP_LEFT" prefHeight="25.0" prefWidth="235.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </HBox.margin>
                     </TextField>
                     <Button alignment="TOP_RIGHT" text="Search">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </HBox.margin></Button>
                   <VBox.margin>
                      <Insets top="5.0" />
                   </VBox.margin></HBox>
-                <TabPane prefHeight="708.0" prefWidth="309.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane prefHeight="708.0" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Contacts">
                             <content>
@@ -99,15 +97,14 @@
                             </content>
                         </Tab>
                     </tabs>
-                  <padding>
-                     <Insets top="5.0" />
-                  </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </TabPane>
             </VBox>
-             <Pane fx:id="masterPane">
-
-             </Pane>
-         </items>
-      </SplitPane>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+        </Pane>
    </center>
 </BorderPane>
