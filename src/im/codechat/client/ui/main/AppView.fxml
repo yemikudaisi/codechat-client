@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ListView?>
+<AnchorPane styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+        <BorderPane fx:id="containerGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <BorderPane styleClass="menu-hbox">
+                      <left>
+                          <MenuBar id="main-menu">
+                              <menus>
+                                  <Menu mnemonicParsing="false" text="File">
+                                      <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+                                          <MenuItem fx:id="menuExitApplication" mnemonicParsing="false" onAction="#exitAction" text="Exit" />
+                                      </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" text="Contacts" />
+                                  <Menu mnemonicParsing="false" text="Actions" />
+                                  <Menu mnemonicParsing="false" text="Help" />
+                              </menus>
+                          </MenuBar>
+                      </left>
+
+                    <right>
+                        <HBox alignment="CENTER_RIGHT">
+                            <MaterialDesignIconView glyphName="ACCOUNT" glyphStyle="-fx-fill: white" size="14PX" />
+                            <Label fx:id="loggedInUserName" text="Yemi" />
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                        </HBox>
+                    </right>
+                </BorderPane>
+            </top>
+                <left>
+                    <GridPane>
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                            <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                        </rowConstraints>
+                        <children>
+                            <VBox alignment="TOP_LEFT" maxWidth="300" minWidth="200" prefWidth="300" styleClass="messenger-container">
+                                <children>
+                                    <ComboBox fx:id="comboPresence" prefHeight="27.0" prefWidth="295.0" promptText="Status">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Available" />
+                                                <String fx:value="Free to chat" />
+                                                <String fx:value="Busy" />
+                                                <String fx:value="Away" />
+                                                <String fx:value="Extended away" />
+                                            </FXCollections>
+                                        </items>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                                    </ComboBox>
+                                    <HBox>
+                                        <TextField HBox.hgrow="ALWAYS" />
+                                        <Button alignment="TOP_RIGHT" styleClass="accent-button">
+                                            <graphic>
+                                                <MaterialDesignIconView glyphName="MAGNIFY" glyphStyle="-fx-fill: white" size="14PX" />
+                                            </graphic>
+                                        </Button>
+                                     </HBox>
+
+                                </children>
+                                <BorderPane.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </BorderPane.margin>
+
+                            </VBox>
+                            <HBox fillHeight="true" GridPane.rowIndex="1">
+                                <TabPane style="-fx-background-color: white; " tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                                    <tabs>
+                                        <Tab text="Contacts">
+                                            <content>
+                                                <ListView fx:id="contactsListView" styleClass="contacts-list" />
+                                            </content>
+                                        </Tab>
+                                        <Tab text="Conference">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                    <GridPane.margin>
+                                        <Insets top="5.0" />
+                                    </GridPane.margin>
+                                </TabPane>
+                            </HBox>
+                        </children>
+                    </GridPane>
+
+                </left>
+                <center>
+                    <AnchorPane fx:id="masterPane" minWidth="400" />
+                </center>
+       </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,5 +1,6 @@
 package im.codechat.client.core.ui;
 
+import im.codechat.client.core.exception.ComponentViewNotFoundException;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -20,15 +21,22 @@ import java.util.ResourceBundle;
  * @version 1.0
  * @since 5/18/2017
  */
-public abstract class BaseComponentController implements Initializable {
+public class BaseComponentController extends BaseController{
 
     protected Pane pane;
 
-    public Pane getPane() throws IOException {
-        System.out.println(this.getClass().getSimpleName());
+    public Pane getPane() throws ComponentViewNotFoundException {
         if(this.pane == null)
-            this.pane = FXMLLoader.load(getClass().getResource(this.getClass().getSimpleName()+".fxml"));
-
+            try {
+                this.pane = FXMLLoader.load(getClass().getResource(this.getClass().getSimpleName()+".fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         return this.pane;
     }
+
+    public void setPane(Pane pane){
+        this.pane = pane;
+    }
+
 }

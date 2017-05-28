@@ -2,19 +2,17 @@ package im.codechat.client.ui.login;
 
 import java.io.IOException;
 
-import com.anchorage.docks.node.DockNode;
-import com.anchorage.docks.stations.DockStation;
-import com.anchorage.system.AnchorageSystem;
-import im.codechat.client.application.Globals;
-import im.codechat.client.core.ui.BaseController;
-import im.codechat.client.ui.main.MessengerComponent;
-import im.codechat.client.xmpp.XMPPHandler;
+import im.codechat.client.core.application.AppManager;
+import im.codechat.client.core.ui.BaseViewController;
+import im.codechat.client.ui.main.AppViewController;
+import im.codechat.client.core.xmpp.XmppManager;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 import rocks.xmpp.core.XmppException;
 
 /**
@@ -26,7 +24,7 @@ import rocks.xmpp.core.XmppException;
  * @version 1.0
  * @since 15/5/17
  */
-public class LoginViewController  extends BaseController {
+public class LoginViewController  extends BaseViewController {
 
     @FXML
     TextField txtUsername;
@@ -36,30 +34,41 @@ public class LoginViewController  extends BaseController {
     Label status;
     public LoginViewController(){
         try {
-            XMPPHandler handler = XMPPHandler.instance();
-            Globals.setXmppHandler(handler);
+            XmppManager handler = XmppManager.instance();
+            AppManager.setXmppManager(handler);
         } catch (XmppException e) {
             e.printStackTrace();
         }
+
+        /**
+        try {
+            new AppViewController().showView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    public void setScene(Scene scene){
+        super.setScene(scene);
+        this.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch(event.getCode()){
+                    case ENTER:
+                        loginAction(new ActionEvent());
+                        break;
+                }
+            }
+        });
     }
 
     @FXML
     private void loginAction(ActionEvent ev){
         try{
-
-            MessengerComponent mainCtrl = new MessengerComponent();
-            if(Globals.getXmppHandler().login(getLoginUsername(),getLoginPassword())){
-                DockStation station = AnchorageSystem.createStation();
-
-                Scene scene = new Scene(station, 1024, 768);
-                DockNode messengerNode = AnchorageSystem.createDock("Messenger", mainCtrl.getPane());
-                messengerNode.dock(station, DockNode.DockPosition.LEFT);
-                messengerNode.floatableProperty().set(false);
-                AnchorageSystem.installDefaultStyle();
-                Stage stage = new Stage();
-                stage.setTitle("CodeChat");
-                stage.setScene(scene);
-                stage.show();
+            AppViewController mainCtrl = AppManager.getController();
+            if(AppManager.getXmppManager().login(getLoginUsername(),getLoginPassword())){
+                AppManager.setSessionUsername(getLoginUsername());
+                mainCtrl.showView();
                 this.tryClose();
             }
             else{

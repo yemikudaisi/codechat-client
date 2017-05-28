@@ -1,0 +1,167 @@
+.root {
+    -fx-background-color: white;
+    -fx-border-width: 0px 1px 0px 0px;
+}
+
+#main-menu.menu-bar, #main-menu .menu-item, #main-menu .menu:focused, #main-menu .menu:focused .label,  #main-menu .context-menu, .menu-hbox{
+    -fx-background-color: #2A333E;
+}
+
+#main-menu.menu-bar{
+    -fx-padding: 15px 10px;
+}
+
+#main-menu .menu{
+    -fx-border-style: solid;
+    -fx-border-color: #2A333E;
+    -fx-border-width: 0 0 5px 0;
+}
+
+
+#main-menu .menu:hover{
+    -fx-border-color: #3888cb;
+}
+
+#main-menu .menu .label, #main-menu .menu:focused, #main-menu .menu-item .label{
+    -fx-background-color: #2A333E;
+    -fx-text-fill: #cccccc;
+    -fx-font-weight: bold;
+}
+
+#main-menu .context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-insets: 0px;
+    -fx-background-radius: 0px;
+
+    -fx-padding: 10px 20px 10px 20px;
+}
+
+#main-menu .menu:hover ,#main-menu .menu:hover .label, #main-menu .menu:showing,#main-menu .menu:showing .label {
+    -fx-background-color: #2A333E;
+}
+
+#main-menu .menu-item:focused .label {
+    -fx-text-fill: #3888cb;
+}
+
+.combo-box{
+    -fx-background-color: transparent;
+}
+.combo-box .arrow,
+.combo-box .arrow-button{
+    -fx-background-color: transparent;
+}
+
+
+/* this part is from  default stiles fxrt.jar!/com/sun/javafx/scene/control/skin/caspian/caspian.css */
+.combo-box:hover{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.combo-box:showing > .arrow-button {
+    -fx-color: -fx-pressed-base;
+}
+
+/* ------- ARROW* ------- */
+.combo-box:hover > .arrow-button > .arrow{
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+
+
+.messenger-container{
+    -fx-padding: 5px;
+}
+
+#masterPane{
+    -fx-background-color: #F3F6FB;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 0px 0px 1px;
+    -fx-border-color: #E5E5E7;
+}
+
+.tab-pane, .tree-view{
+    -fx-border-width: 0px;
+}
+
+.tab-pane .tab, .tab-pane .tab-header-area .tab-header-background
+{
+    -fx-background-color: #FFFFFF;
+    -fx-border-style: none;
+}
+.tab-pane .tab-header-area{
+    -fx-background-color: red;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-padding: 30px;
+    -fx-border-style: solid;
+    -fx-border-color: #E5E5E7;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.tab .tab-label, .tab .tab-label:focused {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-style: none;
+}
+
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #3888cb;
+    -fx-border-style: solid;
+    -fx-border-color: #3888cb;
+    -fx-border-width: 0 0 5px 0;
+}
+
+.text-field, .button, .combo-box{
+    -fx-border-style: solid;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 0px;
+}
+
+.accent-button{
+    -fx-background-color: #3888cb;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #2f72a9;
+    -fx-background-radius: 0;
+}
+
+.accent-button:hover{-fx-background-color: #419fee
+}
+.accent-button:pressed{-fx-background-color: #2a6597
+}
+
+#loggedInUserName{
+    -fx-font-size: 14;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.chat-bubble-inbound, .chat-bubble-outbound, .chat-bubble-default{
+    -fx-padding: 30px;
+    -fx-background-color: #e9e9e9;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 20px 0 20px 0;
+}
+
+.chat-bubble-inbound{ -fx-background-color: #A4E7D2;}
+.chat-bubble-outbound{ -fx-background-color: #A4D9F1;}
+
+.contacts-list .list-cell:even, .contacts-list .list-cell:odd, .contacts-list .list-cell:selected{
+    -fx-background-color: white;
+}
+
+.contacts-list .list-cell:focused{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2f72a9;
+}

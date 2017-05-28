@@ -1,4 +1,4 @@
-package im.codechat.client.xmpp;
+package im.codechat.client.core.xmpp;
 
 import rocks.xmpp.core.XmppException;
 import rocks.xmpp.core.sasl.AuthenticationException;
@@ -14,17 +14,23 @@ import rocks.xmpp.addr.Jid;
  * @version 1.0
  * @since 15/5/17
  */
-public class XMPPHandler {
+public class XmppManager {
     private final String loginServer = "192.168.138.128";
     TcpConnectionConfiguration config;
     private XmppClient client;
+    static XmppManager instance;
 
-    public XMPPHandler() throws XmppException {
+    public XmppManager() throws XmppException {
         this.config = TcpConnectionConfiguration.builder()
                 .hostname(loginServer)
                 .port(5222)
                 .secure(false)
                 .build();
+        initClient();
+    }
+
+    private void initClient() throws XmppException {
+
         setClient(XmppClient.create("xchoc-debian",this.config));
         getClient().connect();
     }
@@ -38,10 +44,9 @@ public class XMPPHandler {
         }
     }
 
-    static XMPPHandler instance;
-    public static  XMPPHandler instance() throws XmppException {
+    public static XmppManager instance() throws XmppException {
         if(instance == null) {
-            instance = new XMPPHandler();
+            instance = new XmppManager();
         }
         return instance;
     }
@@ -61,9 +66,18 @@ public class XMPPHandler {
 
     public void dispose() throws XmppException {
         getClient().close();
+        this.setClient(null);
     }
 
     public XmppClient getClient() {
+        // TODO check if client is null
+        if (client == null)
+            try {
+                initClient();
+            } catch (XmppException e) {
+                // TODO catch
+                e.printStackTrace();
+            }
         return client;
     }
 
