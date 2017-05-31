@@ -10,6 +10,6 @@ package im.codechat.client.core.chat.extensions.codechat.exceptions;
 public class DuplicateOfferStoreException extends Exception {
 
     public DuplicateOfferStoreException(){
-        super("A store with the same key already exists in the container");
+        super("A store with the same key already exists in the store container");
     }
 }

@@ -103,7 +103,7 @@ public class BaseViewController extends BaseController {
         try {
             scene.getStylesheets().add(this.getClass().getResource("styles.css").toExternalForm());
         }catch (Exception e){
-            // TODO
+            // TODO Handle exception
         }
         this.setScene(scene);
         stage.setScene(scene);

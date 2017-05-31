@@ -60,7 +60,7 @@ public class AppViewController extends BaseViewController {
             this.tryClose();
             new LoginViewController().showView();
         } catch (XmppException e) {
-            // TODO
+            // TODO Handle exception
             e.printStackTrace();
         } catch (IOException e) {
             // TODO1
@@ -73,7 +73,7 @@ public class AppViewController extends BaseViewController {
         try {
             AppManager.exitApplication();
         } catch (XmppException e) {
-            // TODO
+            // TODO handle exception
             e.printStackTrace();
         }
     }
