@@ -18,7 +18,7 @@
     <VBox fillWidth="true" prefHeight="186.0" prefWidth="488.0" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
         <BorderPane>
             <left>
-                <Label fx:id="paneContactLabel" text="Yemi" />
+                <Label fx:id="chatContactLabel" text="Yemi" />
             </left>
             <right><HBox alignment="TOP_RIGHT">
                 <Button text="Details" />
@@ -34,8 +34,8 @@
                 </padding>
             </HBox></right>
         </BorderPane>
-        <GridPane fx:id="chatArea" minHeight="0.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <!--<columnConstraints>
+        <GridPane styleClass="chat-area"  minHeight="0.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
             <rowConstraints>
@@ -48,17 +48,17 @@
             <children>
 
                 <Label styleClass="chat-bubble-inbound" GridPane.halignment="LEFT" GridPane.rowIndex="0">
-                    Hello, can I speak to you german colleague ?
+                    Hello, can I speak offerTo you german colleague ?
                 </Label>
                 <Label styleClass="chat-bubble-time" GridPane.halignment="LEFT" GridPane.rowIndex="1">16:53:44</Label>
                 <Label styleClass="chat-bubble-outbound" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                    Sure you can, please wait while I connect you to him
+                    Sure you can, please wait while I connect you offerTo him
                 </Label>
                 <Label styleClass="chat-bubble-time" GridPane.halignment="RIGHT" GridPane.rowIndex="3">16:53:44</Label>
                 <Label styleClass="chat-bubble-default" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     User has logged out
                 </Label>
-            </children>-->
+            </children>
             <VBox.margin>
             <Insets bottom="10.0" />
             </VBox.margin>

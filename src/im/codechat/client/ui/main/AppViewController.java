@@ -1,10 +1,13 @@
 package im.codechat.client.ui.main;
 
-import im.codechat.client.core.ContactsListViewCellFactory;
+import im.codechat.client.core.chat.message.InboundMessageListener;
+import im.codechat.client.core.chat.presence.InboundPresenceListener;
+import im.codechat.client.core.chat.presence.OutboundPresenceListener;
+import im.codechat.client.core.chat.presence.PresenceChangeEvent;
+import im.codechat.client.core.chat.presence.PresenceChangeListener;
+import im.codechat.client.core.ui.ContactsListViewCellFactory;
 import im.codechat.client.core.application.AppManager;
-import im.codechat.client.core.chat.ChatManager;
-import im.codechat.client.core.chat.InboundMessageConsumer;
-import im.codechat.client.core.chat.PresenceListener;
+import im.codechat.client.core.application.WorkspaceManager;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
 import im.codechat.client.core.ui.BaseViewController;
 import im.codechat.client.core.ui.ChatPane;
@@ -20,9 +23,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import rocks.xmpp.core.XmppException;
-import rocks.xmpp.core.stanza.model.Presence;
 import rocks.xmpp.im.roster.RosterManager;
 import rocks.xmpp.im.roster.model.Contact;
+import rocks.xmpp.im.subscription.PresenceManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,7 +56,7 @@ public class AppViewController extends BaseViewController {
     @FXML
     public void logoutAction(){
         try {
-            AppManager.getXmppManager().dispose();
+            AppManager.getChatManager().dispose();
             this.tryClose();
             new LoginViewController().showView();
         } catch (XmppException e) {
@@ -78,73 +81,67 @@ public class AppViewController extends BaseViewController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loggedInUserName.setText(AppManager.getSessionUsername());
-        RosterManager rosterManager = AppManager.getXmppManager().getClient().getManager(RosterManager.class);
+        RosterManager rosterManager = AppManager.getChatManager().getClient().getManager(RosterManager.class);
 
-        // Get all contacts
         Platform.runLater(() -> {
+            // Get all contacts on initalization
             this.contactList = FXCollections.observableList(new ArrayList<Contact>(rosterManager.getContacts()));
-            this.updateContactsUI();
-        });
 
-        // listen for incoming rosters
+            // Get presence for all contacts and add it to ChatManager presence queue
+            PresenceManager manager = AppManager.getChatManager().getClient().getManager(PresenceManager.class);
+            for (Contact c:this.contactList){
+                AppManager.getChatManager().addPresence(manager.getPresence(c.getJid()));
+            }
+            this.refreshContactsListView();
+        });
 
         rosterManager.addRosterListener( e -> {
             Platform.runLater(() -> {
                 new Alert(Alert.AlertType.ERROR, "roster").showAndWait();
-                this.contactList = FXCollections.observableArrayList(new ArrayList<Contact>(rosterManager.getContacts()));
-                updateContactsUI();
+                this.contactList = FXCollections.observableArrayList(new ArrayList<Contact>(e.getUpdatedContacts()));
+                refreshContactsListView();
             });
 
         });
 
-        AppManager.getXmppManager().getClient().addInboundPresenceListener(e -> {
-            Platform.runLater(() -> {
-                Presence presence = e.getPresence();
-                Contact contact = AppManager.getXmppManager().getClient().getManager(RosterManager.class).getContact(presence.getFrom());
-                if (contact != null) {
-                    new Alert(Alert.AlertType.ERROR, "presence").showAndWait();
-                }
-            });
-        });
-
-        AppManager.getXmppManager().getClient().addInboundMessageListener(new InboundMessageConsumer());
+        AppManager.getChatManager().getClient().addInboundPresenceListener(new InboundPresenceListener());
+        AppManager.getChatManager().getClient().addInboundMessageListener(new InboundMessageListener());
 
         // add listener to presence combo
-        comboPresence.valueProperty().addListener(new PresenceListener());
+        comboPresence.valueProperty().addListener(new OutboundPresenceListener());
 
         initializeUIComponents();
     }
 
     private void initializeUIComponents(){
-        //containerGrid
-        //try {
-            //this.masterPane.getChildren().add(new ChatComponent().getPane());
-        //} catch (IOException e) {
-            //e.printStackTrace();
-        //}
         contactsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 masterPane.getChildren().clear();
                 Contact selectedContact = (Contact)newValue;
+                ChatComponent component = WorkspaceManager.getInstance().getChatComponent(selectedContact.getJid().toString());
+                component.setJid(AppManager.getChatManager().getLocalDomainJid(selectedContact.getJid()));
                 try {
-                    ChatComponent component = ChatManager.getInstance().getChatComponent(selectedContact.getJid().toString());
-                    component.setJid(selectedContact.getJid().toString());
-                    //masterPane.getChildren().clear();
-                    //masterPane.getChildren().add(component.getPane());
-                    showChatPane(component);
-                } catch (Exception e) {
+                    showChatPane((ChatPane) component.getPane());
+                } catch (ComponentViewNotFoundException e) {
                     e.printStackTrace();
                 }
 
             }
         });
+        AppManager.getChatManager().addPresenceChangeListener(new PresenceChangeListener() {
+            @Override
+            public void dispatchPresenceChange(PresenceChangeEvent e) {
+                refreshContactsListView();
+            }
+        });
     }
 
-    private void showChatPane(ChatComponent component){
+    public void showChatPane(ChatPane pane){
+        WorkspaceManager.setSelectedChatComponent(pane.getJid());
         for (int i = 0; i < masterPane.getChildren().size(); i++) {
             ChatPane cP = (ChatPane) masterPane.getChildren().get(i);
-            if(cP.getJid() == component.getJid()){
+            if(cP.getJid() == pane.getJid()){
                 cP.setVisible(true);
                 return;
             }else{
@@ -152,11 +149,7 @@ public class AppViewController extends BaseViewController {
                 return;
             }
         }
-        try {
-            masterPane.getChildren().add(component.getPane());
-        } catch (ComponentViewNotFoundException e) {
-            e.printStackTrace();
-        }
+        masterPane.getChildren().add(pane);
     }
 
     public ChatPane getChatPane(String jid){
@@ -169,7 +162,8 @@ public class AppViewController extends BaseViewController {
         return null;
     }
 
-    private void updateContactsUI(){
+    private void refreshContactsListView(){
+
         contactsListView.setCellFactory(new ContactsListViewCellFactory());
         contactsListView.setItems(this.contactList);
     }

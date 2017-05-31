@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 public class ChatPane extends AnchorPane {
 
     private String jid;
+    private ChatEntryContainer chatEntryArea;
 
     public Node getChild(String childId){
         for (int i = 0; i < this.getChildren().size(); i++){
@@ -31,5 +32,13 @@ public class ChatPane extends AnchorPane {
 
     public void setJid(String jid) {
         this.jid = jid;
+    }
+
+    public ChatEntryContainer getChatEntryArea() {
+        return chatEntryArea;
+    }
+
+    public void setChatEntryArea(ChatEntryContainer chatEntryArea) {
+        this.chatEntryArea = chatEntryArea;
     }
 }

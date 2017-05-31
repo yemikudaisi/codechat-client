@@ -4,16 +4,17 @@ import java.io.IOException;
 
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.ui.BaseViewController;
+import im.codechat.client.core.chat.ChatManager;
 import im.codechat.client.ui.main.AppViewController;
-import im.codechat.client.core.xmpp.XmppManager;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import rocks.xmpp.core.XmppException;
+import rocks.xmpp.core.session.XmppSession;
 
 /**
  *
@@ -26,16 +27,15 @@ import rocks.xmpp.core.XmppException;
  */
 public class LoginViewController  extends BaseViewController {
 
-    @FXML
-    TextField txtUsername;
-    @FXML
-    PasswordField txtPassword;
-    @FXML
-    Label status;
+    @FXML TextField txtUsername;
+    @FXML PasswordField txtPassword;
+    @FXML Label status;
+    @FXML ProgressIndicator loginProgressIndicator;
+
     public LoginViewController(){
         try {
-            XmppManager handler = XmppManager.instance();
-            AppManager.setXmppManager(handler);
+            ChatManager handler = ChatManager.instance();
+            AppManager.setChatManager(handler);
         } catch (XmppException e) {
             e.printStackTrace();
         }
@@ -64,22 +64,49 @@ public class LoginViewController  extends BaseViewController {
 
     @FXML
     private void loginAction(ActionEvent ev){
-        try{
-            AppViewController mainCtrl = AppManager.getController();
-            if(AppManager.getXmppManager().login(getLoginUsername(),getLoginPassword())){
-                AppManager.setSessionUsername(getLoginUsername());
-                mainCtrl.showView();
-                this.tryClose();
-            }
-            else{
-                setStatus("Login Failed");
-            }
+        LoginViewController temp = this;
+        Task task = new Task<Void>() {
 
-        }catch(XmppException e){
-            new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
+            @Override public Void call() {
+
+                try{
+                    boolean result = AppManager.getChatManager().login(getLoginUsername(),getLoginPassword());
+                    if(result){
+                        this.cancel();
+                    }
+                    else{
+                        this.failed();
+                    }
+                }catch (XmppException e) {
+                    XmppSession.Status status = AppManager.getChatManager().getClient().getStatus();
+                    e.printStackTrace();
+                    this.failed();
+                }
+                return null;
+            }
+        };
+
+        task.setOnRunning(event -> loginProgressIndicator.setVisible(true));
+        task.setOnSucceeded(event -> loginFail());
+        task.setOnCancelled(event -> loginSuccess());
+        new Thread(task).start();
+    }
+
+    private void loginSuccess(){
+        loginProgressIndicator.setVisible(false);
+        AppViewController mainCtrl = AppManager.getController();
+        AppManager.setSessionUsername(getLoginUsername());
+        try {
+            mainCtrl.showView();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.tryClose();
+    }
+
+    private void loginFail(){
+        loginProgressIndicator.setVisible(false);
+        setStatus("Login Failed");
     }
 
     private String getLoginUsername(){

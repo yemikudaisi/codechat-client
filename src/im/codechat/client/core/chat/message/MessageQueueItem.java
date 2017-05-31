@@ -1,19 +1,19 @@
-package im.codechat.client.core.chat;
+package im.codechat.client.core.chat.message;
 
 import rocks.xmpp.core.stanza.model.Message;
 
 /**
- * The description for MessageQueue class
+ * The description for MessageQueueItem class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/27/2017
  */
-public class MessageQueue {
+public class MessageQueueItem {
     private Message message;
     private MessageDirections direction;
 
-    public MessageQueue(Message message, MessageDirections direction){
+    public MessageQueueItem(Message message, MessageDirections direction){
         this.message = message;
         this.direction = direction;
     }

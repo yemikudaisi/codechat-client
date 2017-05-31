@@ -86,27 +86,46 @@
     -fx-border-color: #E5E5E7;
 }
 
-.tab-pane, .tree-view{
-    -fx-border-width: 0px;
+#master-tab.tab-pane{
+    -fx-border-style: none;
 }
 
-.tab-pane .tab, .tab-pane .tab-header-area .tab-header-background
+#master-tab.tab-pane .tab, #master-tab.tab-pane .tab:selected, #master-tab.tab-pane .tab-header-area .tab-header-background
 {
     -fx-background-color: #FFFFFF;
     -fx-border-style: none;
 }
-.tab-pane .tab-header-area{
-    -fx-background-color: red;
+#master-tab.tab-pane .tab{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 0px 10px 5px 10px;
+}
+#master-tab.tab-pane .tab:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-border-style: solid;
+    -fx-border-color: #3888cb;
+    -fx-border-width: 0px 0px 2px 0px;
 }
 
-.tab-pane .tab-header-area .tab-header-background{
-    -fx-padding: 30px;
+#master-tab .tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #3888cb;
+}
+
+#master-tab.tab-pane .tab-header-area {
+    -fx-border-style: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#master-tab.tab-pane .tab-header-area .tab-header-background{
     -fx-border-style: solid;
     -fx-border-color: #E5E5E7;
     -fx-border-width: 0 0 1px 0;
 }
+#master-tab .tab .tab-label{
+}
 
-.tab .tab-label, .tab .tab-label:focused {
+#master-tab .tab .tab-label,#master-tab .tab .tab-label:focused {
     -fx-alignment: CENTER;
     -fx-text-fill: #828282;
     -fx-font-size: 12px;
@@ -115,12 +134,49 @@
 }
 
 
-.tab:selected .tab-label {
-    -fx-alignment: CENTER;
-    -fx-text-fill: #3888cb;
+
+#chat-pane .tab-pane{
+    -fx-border-width: 0;
+}
+
+#chat-pane .tab-pane .tab, #chat-pane .tab-pane .tab:selected, #chat-pane .tab-pane .tab-header-area .tab-header-background{
+
+}
+
+#chat-pane .tab-pane .tab{
+    -fx-padding: 5px 5px 5px 0px;
+    -fx-background-color: #C2C6CB;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
     -fx-border-style: solid;
-    -fx-border-color: #3888cb;
-    -fx-border-width: 0 0 5px 0;
+    -fx-border-width: 0;
+}
+
+#chat-pane .tab-pane .tab:selected{
+    -fx-background-color: #F3F6FB;
+    -fx-border-width: 5px 0 0 0;-fx-border-color: #2a6597;
+}
+
+#chat-pane  .tab:selected .tab-label {
+}
+
+#chat-pane .tab-pane .tab-header-area {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: red;
+}
+
+#chat-pane .tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: #C2C6CB;
+    -fx-border-width: 0;
+}
+
+#chat-pane  .tab .tab-label{
+    -fx-padding: 0 15px 0 20px;
+    -fx-font-weight: bold;
+}
+
+#chat-pane  .tab .tab-label,#chat-pane  .tab .tab-label:focused {
 }
 
 .text-field, .button, .combo-box{
@@ -136,9 +192,9 @@
     -fx-background-radius: 0;
 }
 
-.accent-button:hover{-fx-background-color: #419fee
-}
-.accent-button:pressed{-fx-background-color: #2a6597
+.accent-button:hover{-fx-background-color: #419fee}
+.accent-button:pressed{-fx-background-color: #2a6597}
+.accent-button:disabled{-fx-background-color: #626061
 }
 
 #loggedInUserName{
@@ -148,14 +204,22 @@
 }
 
 .chat-bubble-inbound, .chat-bubble-outbound, .chat-bubble-default{
-    -fx-padding: 30px;
+    -fx-padding: 20px;
     -fx-background-color: #e9e9e9;
     -fx-background-radius: 5px;
-    -fx-background-insets: 20px 0 20px 0;
+    -fx-background-insets: 10px 0 10px 0;
 }
 
-.chat-bubble-inbound{ -fx-background-color: #A4E7D2;}
-.chat-bubble-outbound{ -fx-background-color: #A4D9F1;}
+.chat-bubble-inbound{
+    -fx-background-color: #A4E7D2;
+    -fx-alignment: top-left;
+    -fx-background-radius: 20px 10px 20px 0px;
+}
+.chat-bubble-outbound{
+    -fx-background-radius: 10px 20px 0px 20px;
+    -fx-background-color: #A4D9F1;
+    -fx-alignment: top-right;
+}
 
 .contacts-list .list-cell:even, .contacts-list .list-cell:odd, .contacts-list .list-cell:selected{
     -fx-background-color: white;
@@ -164,4 +228,14 @@
 .contacts-list .list-cell:focused{
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #2f72a9;
+}
+
+.material.text-field {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-width: 0 0 5px 0;
+    -fx-text-fill: red;
+    -fx-display-caret: false;
+    -fx-prompt-text-fill: #cccccc;
+    -fx-highlight-fill: green;
 }
