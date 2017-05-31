@@ -1,6 +1,8 @@
 package im.codechat.client.core.chat.extensions.codechat;
 
-import im.codechat.client.core.chat.extensions.codechat.exceptions.OfferStoreNotFoundException;
+import im.codechat.client.core.chat.extensions.codechat.exceptions.DuplicateSessionException;
+import im.codechat.client.core.chat.extensions.codechat.exceptions.SessionNotFoundException;
+import rocks.xmpp.addr.Jid;
 
 import java.util.List;
 
@@ -21,9 +23,9 @@ public interface ICodeChatManager {
      * @param keyToFind The key to store to find
      * @param searchType The type of container to conduct the search on
      * @return The offer store with an offer that has the key
-     * @throws OfferStoreNotFoundException
+     * @throws SessionNotFoundException
      */
-    CodeChatOfferStore findOfferStore(String keyToFind, CodeChatOfferStoreContainers searchType) throws OfferStoreNotFoundException;
+    CodeChatSession findSession(String keyToFind, CodeChatSessionContainers searchType) throws SessionNotFoundException;
 
     /**
      * Searches for an offer store whose offer's instance has the specified key from
@@ -33,9 +35,9 @@ public interface ICodeChatManager {
      * @param keyToFind The key to store to find
      * @param containerToSearch The store container to search in
      * @return The offer store with an offer that has the key
-     * @throws OfferStoreNotFoundException
+     * @throws SessionNotFoundException
      */
-    CodeChatOfferStore findOfferStore(String keyToFind, List<CodeChatOfferStore> containerToSearch) throws OfferStoreNotFoundException;
+    CodeChatSession findSession(String keyToFind, List<CodeChatSession> containerToSearch) throws SessionNotFoundException;
 
     /**
      * Remove an offer store from the pending store container
@@ -43,9 +45,36 @@ public interface ICodeChatManager {
      * otherwise simply add the store it to approved hosts store container
      *
      * @param keyToApprove The key of the store to approve
-     * @throws OfferStoreNotFoundException
+     * @throws SessionNotFoundException
      */
-    void approveOfferStore(String keyToApprove, CodeChatOfferStoreApprovals approvalType) throws OfferStoreNotFoundException;
+    void approveGuestSession(String keyToApprove, CodeChatSessionApprovals approvalType) throws SessionNotFoundException;
+
+    /**
+     * Approve an offer from an host and create
+     * a response of approval
+     *
+     * @return
+     */
+    CodeChatOfferResponse approveHostOffer(CodeChatOffer offerToApprove, Jid from);
+
+    /**
+     * Deny an offer from an host and create
+     * a response of denial
+     *
+     * @return
+     */
+    CodeChatOfferResponse denyHostOffer(CodeChatOffer offerToDeny);
+
+    /**
+     * Add an offer store to store container based on the containerr type specified.
+     * It is responsible for ensuring that duplicate offers does not exist in a container
+     * store while adding new store to a container.
+     *
+     * @param offerStore The store to add
+     * @param containerType The type of container to add the container to
+     * @throws DuplicateSessionException
+     */
+    void addOfferStore(CodeChatSession offerStore, CodeChatSessionContainers containerType) throws DuplicateSessionException;
 
     /**
      * Get container for pending offer stores
@@ -53,7 +82,7 @@ public interface ICodeChatManager {
      *
      * @return List containing pending host offers
      */
-    List<CodeChatOfferStore> getPendingOfferStoreContainer();
+    List<CodeChatSession> getPendingGuestSessionContainer();
 
 
     /**
@@ -62,7 +91,7 @@ public interface ICodeChatManager {
      *
      * @return List containing offers sent by host (you) approved by a guest (other)
      */
-    List<CodeChatOfferStore> getApprovedGuestOfferStoreContainer();
+    List<CodeChatSession> getApprovedGuestOfferStoreContainer();
 
     /**
      * Get container for host (other) offers store who response was approved
@@ -70,6 +99,6 @@ public interface ICodeChatManager {
      *
      * @return List containing offers sent by host (other) approved by a guest (you)
      */
-    List<CodeChatOfferStore> getApprovedHostOfferStoreContainer();
+    List<CodeChatSession> getApprovedHostOfferStoreContainer();
 
 }

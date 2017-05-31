@@ -91,6 +91,7 @@ public class ChatComponent extends BaseComponentController {
             String key =  UUID.randomUUID().toString();
             String uniquePath = selectedDirectory.getCanonicalPath();
             msg.addExtension(new CodeChatOffer(selectedDirectory.getName(),key));
+            CodeChatOffer offer = new
             AppManager.getChatManager().getFolderShareOfferKeys().put(key, uniquePath);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,15 +1,15 @@
 package im.codechat.client.core.chat.extensions.codechat.exceptions;
 
 /**
- * The description for DuplicateOfferStoreException class
+ * The description for DuplicateSessionException class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/31/2017
  */
-public class DuplicateOfferStoreException extends Exception {
+public class DuplicateSessionException extends Exception {
 
-    public DuplicateOfferStoreException(){
+    public DuplicateSessionException(){
         super("A store with the same key already exists in the store container");
     }
 }

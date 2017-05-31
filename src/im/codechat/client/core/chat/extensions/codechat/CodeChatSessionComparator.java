@@ -13,10 +13,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/31/2017
- * @see CodeChatOfferStore
+ * @see CodeChatSession
  */
 @XmlTransient
-public abstract class CodeChatOfferStoreComparer {
+public abstract class CodeChatSessionComparator {
 
     @XmlAttribute
     private String key;
@@ -29,7 +29,7 @@ public abstract class CodeChatOfferStoreComparer {
      * @param responseFrom The sender of this message
      * @return true if the extension is for the store
      */
-    public boolean isForStore(CodeChatOfferStore store, Jid responseFrom){
+    public boolean isForStore(CodeChatSession store, Jid responseFrom){
         if(ChatManager.getLocalDomainJid(responseFrom).equals(ChatManager.getLocalDomainJid(store.getOfferTo()))){
             if(this.key.equals(store.getOffer().getKey())){
                 return true;

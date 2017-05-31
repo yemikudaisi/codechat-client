@@ -17,6 +17,7 @@ public class WorkspaceManager {
 
     private static WorkspaceManager instance;
     private static final Object LOCK = new Object();
+
     private static String selectedChatComponent;
 
     public WorkspaceManager(){

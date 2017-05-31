@@ -1,13 +1,13 @@
 package im.codechat.client.core.chat.extensions.codechat;
 
 /**
- * The description for CodeChatOfferStoreApprovals class
+ * The description for CodeChatSessionApprovals class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/31/2017
  */
-public enum CodeChatOfferStoreApprovals {
+public enum CodeChatSessionApprovals {
     GUEST,
     HOST
 }

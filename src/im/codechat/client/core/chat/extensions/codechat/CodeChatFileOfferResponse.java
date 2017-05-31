@@ -13,5 +13,5 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "codeChatFileOfferResponse", namespace = "http://xmpp.rocks")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CodeChatFileOfferResponse extends CodeChatOfferStoreComparer {
+public class CodeChatFileOfferResponse extends CodeChatSessionComparator {
 }

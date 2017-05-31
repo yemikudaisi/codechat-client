@@ -1,6 +1,6 @@
 package im.codechat.client.core.chat;
 
-import im.codechat.client.core.chat.extensions.codechat.CodeChatOffer;
+import im.codechat.client.core.chat.extensions.codechat.*;
 import im.codechat.client.core.chat.presence.PresenceChangeEvent;
 import im.codechat.client.core.chat.presence.PresenceChangeListener;
 import rocks.xmpp.core.XmppException;
@@ -42,8 +42,13 @@ public class ChatManager {
                 .secure(false)
                 .build();
 
+        // Configure extension
         XmppSessionConfiguration xmppConfig = XmppSessionConfiguration.builder()
                 .extensions(Extension.of(CodeChatOffer.class))
+                .extensions(Extension.of(CodeChatOfferResponse.class))
+                .extensions(Extension.of(CodeChatFileOffer.class))
+                .extensions(Extension.of(CodeChatFileOfferResponse.class))
+                .extensions(Extension.of(CodeChatFileRequest.class))
                 .build();
         client  = XmppClient.create(loginServer,xmppConfig,config);
         getClient().enableFeature(ChatStateManager.class);

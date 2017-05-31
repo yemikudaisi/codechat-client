@@ -15,24 +15,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "codeChatOfferResponse", namespace = "http://xmpp.rocks")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CodeChatOfferResponse extends CodeChatOfferStoreComparer {
+public class CodeChatOfferResponse extends CodeChatSessionComparator {
 
     @XmlAttribute
     private boolean accept;
+
+    @XmlAttribute
+    private String key;
 
     private CodeChatOfferResponse() {
         // Private no-args default constructor for JAXB.
     }
 
-    public CodeChatOfferResponse(boolean response) {
+    public CodeChatOfferResponse(boolean response, CodeChatOffer offer) {
+
         this.accept = response;
+        this.key = offer.getKey();
     }
 
     public boolean isAccept() {
         return accept;
     }
 
-    public void setAccept(boolean accept) {
-        this.accept = accept;
-    }
+    public String getKey(){ return this.key; }
 }

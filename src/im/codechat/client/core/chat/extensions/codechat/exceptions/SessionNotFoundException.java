@@ -1,14 +1,14 @@
 package im.codechat.client.core.chat.extensions.codechat.exceptions;
 
 /**
- * The description for OfferStoreNotFoundException class
+ * The description for SessionNotFoundException class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/31/2017
  */
-public class OfferStoreNotFoundException extends Exception {
-    public OfferStoreNotFoundException(){
+public class SessionNotFoundException extends Exception {
+    public SessionNotFoundException(){
         super("The store with supplied key was not found in the store container.");
     }
 }

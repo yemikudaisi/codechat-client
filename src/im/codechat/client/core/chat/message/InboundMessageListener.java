@@ -1,9 +1,9 @@
 package im.codechat.client.core.chat.message;
 
 import im.codechat.client.core.application.AppManager;
+import im.codechat.client.core.application.CodeChatManager;
 import im.codechat.client.core.application.WorkspaceManager;
 import im.codechat.client.core.chat.extensions.codechat.CodeChatOffer;
-import im.codechat.client.core.chat.extensions.codechat.CodeChatOfferResponse;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
 import im.codechat.client.core.ui.ChatPane;
 import javafx.application.Platform;
@@ -76,10 +76,10 @@ public class InboundMessageListener implements Consumer<MessageEvent> {
                         Optional<ButtonType> result = alert.showAndWait();
                         Message msg = AppManager.getChatManager().buildMessage(inMsg.getFrom().toString());
                         if (result.get() == yes){
-                            msg.addExtension(new CodeChatOfferResponse(true));
-                            AppManager.getChatManager().getFolderShareAcceptKeys().put(AppManager.getChatManager().getLocalDomainJid(inMsg.getFrom()),offer.getKey());
+                            msg.addExtension(CodeChatManager.getInstance().approveHostOffer(offer, inMsg.getFrom()));
                         } else {
-                            msg.addExtension(new CodeChatOfferResponse(false));
+                            msg.addExtension(CodeChatManager.getInstance().denyHostOffer(offer));
+                            //TODO add "You denied CodeChat offer store to chat area"
                         }
                         AppManager.getChatManager().sendMessage(msg);
                         break;

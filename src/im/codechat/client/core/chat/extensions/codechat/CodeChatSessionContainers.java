@@ -7,7 +7,7 @@ package im.codechat.client.core.chat.extensions.codechat;
  * @version 1.0
  * @since 5/31/2017
  */
-public enum CodeChatOfferStoreContainers {
+public enum CodeChatSessionContainers {
     PENDING,
     APPROVED_HOSTS,
     APPROVED_GUESTS
