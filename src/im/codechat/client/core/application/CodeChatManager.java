@@ -24,16 +24,22 @@ public class CodeChatManager implements ICodeChatManager {
     private List<CodeChatSession> pendingGuestSessionContainer;
     private List<CodeChatSession> approvedGuestSessionContainer;
     private List<CodeChatSession> approvedHostSessionContainer;
-    // Neccessary for keeping track absolute paths of base folder
+    // Necessary for keeping track absolute paths of base folder
     // for CodeChat session
-    // Only neccessary for Hosts
-    private HashMap<String, String> codeChatProjectPaths;
+    // Only necessary for Hosts
+    private HashMap<String, String> sessionRootPaths;
 
     public CodeChatManager(){
         pendingGuestSessionContainer = new ArrayList<>();
         approvedGuestSessionContainer = new ArrayList<>();
         approvedHostSessionContainer = new ArrayList<>();
-        setCodeChatProjectPaths(new HashMap<>());
+        setSessionRootPaths(new HashMap<>());
+    }
+
+    public void initiateSession(Jid to, CodeChatOffer offer, String rootPath) throws DuplicateSessionException {
+        sessionRootPaths.put(offer.getKey(), rootPath);
+        addSession(new CodeChatSession(to,offer), CodeChatSessionContainers.PENDING);
+
     }
 
     /**
@@ -80,15 +86,18 @@ public class CodeChatManager implements ICodeChatManager {
 
         // Now add it to the approved store
         try {
-            addOfferStore(storeToApprove, CodeChatSessionContainers.APPROVED_GUESTS);
+            addSession(storeToApprove, CodeChatSessionContainers.APPROVED_GUESTS);
         } catch (DuplicateSessionException e) {
             // If it has previously been added, just ignore
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public CodeChatOfferResponse approveHostOffer(CodeChatOffer offerToApprove, Jid from){
         try {
-            addOfferStore(new CodeChatSession(offerToApprove,from), CodeChatSessionContainers.APPROVED_GUESTS);
+            addSession(new CodeChatSession(offerToApprove,from), CodeChatSessionContainers.APPROVED_GUESTS);
         } catch (DuplicateSessionException e) {
             // If it has previously been added, just ignore
         }
@@ -104,33 +113,68 @@ public class CodeChatManager implements ICodeChatManager {
     /**
      * {@inheritDoc}
      */
-    public void addOfferStore(CodeChatSession offerStore, CodeChatSessionContainers containerType) throws DuplicateSessionException {
+    public void addSession(CodeChatSession session, CodeChatSessionContainers containerType) throws DuplicateSessionException {
        switch (containerType){
            case PENDING:
                try {
-                   findSession(offerStore.getKey(), CodeChatSessionContainers.PENDING);
+                   findSession(session.getKey(), CodeChatSessionContainers.PENDING);
                    throw new DuplicateSessionException();
                } catch (SessionNotFoundException e) {
-                   getPendingGuestSessionContainer().add(offerStore);
+                   getPendingGuestSessionContainer().add(session);
                }
                break;
            case APPROVED_HOSTS:
                try {
-                   findSession(offerStore.getKey(), CodeChatSessionContainers.APPROVED_HOSTS);
+                   findSession(session.getKey(), CodeChatSessionContainers.APPROVED_HOSTS);
                    throw new DuplicateSessionException();
                } catch (SessionNotFoundException e) {
-                   getPendingGuestSessionContainer().add(offerStore);
+                   getPendingGuestSessionContainer().add(session);
                }
                break;
            case APPROVED_GUESTS:
                try {
-                   findSession(offerStore.getKey(), CodeChatSessionContainers.APPROVED_GUESTS);
+                   findSession(session.getKey(), CodeChatSessionContainers.APPROVED_GUESTS);
                    throw new DuplicateSessionException();
                } catch (SessionNotFoundException e) {
-                   getPendingGuestSessionContainer().add(offerStore);
+                   getPendingGuestSessionContainer().add(session);
                }
                break;
        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void removeSession(String key, CodeChatSessionContainers containers) throws SessionNotFoundException {
+        switch (containers){
+            case PENDING:
+                for(Iterator<CodeChatSession> iter = pendingGuestSessionContainer.listIterator(); iter.hasNext();){
+                    CodeChatSession toRemove = iter.next();
+                    if(key.equals(toRemove.getKey())){
+                        iter.remove();
+                        return;
+                    }
+                }
+                throw new SessionNotFoundException();
+            case APPROVED_HOSTS:
+                for(Iterator<CodeChatSession> iter = approvedHostSessionContainer.listIterator(); iter.hasNext();){
+                    CodeChatSession toRemove = iter.next();
+                    if(key.equals(toRemove.getKey())){
+                        iter.remove();
+                        return;
+                    }
+                }
+                throw new SessionNotFoundException();
+            case APPROVED_GUESTS:
+                for(Iterator<CodeChatSession> iter = approvedGuestSessionContainer.listIterator(); iter.hasNext();){
+                    CodeChatSession toRemove = iter.next();
+                    if(key.equals(toRemove.getKey())){
+                        iter.remove();
+                        return;
+                    }
+                }
+                throw new SessionNotFoundException();
+        }
     }
 
     /**
@@ -143,14 +187,14 @@ public class CodeChatManager implements ICodeChatManager {
     /**
      * {@inheritDoc}
      */
-    public List<CodeChatSession> getApprovedGuestOfferStoreContainer() {
+    public List<CodeChatSession> getApprovedGuestSessionContainer() {
         return approvedGuestSessionContainer;
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<CodeChatSession> getApprovedHostOfferStoreContainer() {
+    public List<CodeChatSession> getApprovedHostSessionContainer() {
         return approvedHostSessionContainer;
     }
 
@@ -167,11 +211,17 @@ public class CodeChatManager implements ICodeChatManager {
         }
     }
 
-    public HashMap<String, String> getCodeChatProjectPaths() {
-        return codeChatProjectPaths;
+    /**
+     * {@inheritDoc}
+     */
+    public HashMap<String, String> getSessionRootPaths() {
+        return sessionRootPaths;
     }
 
-    public void setCodeChatProjectPaths(HashMap<String, String> codeChatProjectPaths) {
-        this.codeChatProjectPaths = codeChatProjectPaths;
+    /**
+     * {@inheritDoc}
+     */
+    public void setSessionRootPaths(HashMap<String, String> sessionRootPaths) {
+        this.sessionRootPaths = sessionRootPaths;
     }
 }

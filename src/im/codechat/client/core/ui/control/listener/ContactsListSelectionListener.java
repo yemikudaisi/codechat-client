@@ -1,10 +1,10 @@
-package im.codechat.client.core.ui;
+package im.codechat.client.core.ui.control.listener;
 
-import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.application.WorkspaceManager;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
-import im.codechat.client.ui.components.ChatComponent;
-import im.codechat.client.ui.main.AppViewController;
+import im.codechat.client.core.ui.control.ChatPane;
+import im.codechat.client.view.components.ChatComponent;
+import im.codechat.client.view.main.MainViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import rocks.xmpp.im.roster.model.Contact;
@@ -23,7 +23,7 @@ public class ContactsListSelectionListener implements ChangeListener {
         ChatComponent component = WorkspaceManager.getInstance().getChatComponent(selectedContact.getJid().toString());
         component.setJid(selectedContact.getJid().toString());
         try {
-            AppViewController.getInstance().showChatPane((ChatPane) component.getPane());
+            MainViewController.getInstance().showChatPane((ChatPane) component.getPane());
         } catch (ComponentViewNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package im.codechat.client.core.ui;
+package im.codechat.client.core.ui.control.factory;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;

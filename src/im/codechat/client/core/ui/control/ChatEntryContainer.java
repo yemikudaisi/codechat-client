@@ -1,4 +1,4 @@
-package im.codechat.client.core.ui;
+package im.codechat.client.core.ui.control;
 
 import im.codechat.client.core.chat.message.MessageDirections;
 import javafx.geometry.HPos;

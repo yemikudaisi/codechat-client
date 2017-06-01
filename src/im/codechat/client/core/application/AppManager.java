@@ -2,7 +2,7 @@ package im.codechat.client.core.application;
 
 import im.codechat.client.Main;
 import im.codechat.client.core.chat.ChatManager;
-import im.codechat.client.ui.main.AppViewController;
+import im.codechat.client.view.main.MainViewController;
 import javafx.application.Platform;
 import rocks.xmpp.core.XmppException;
 
@@ -47,7 +47,7 @@ public class AppManager {
         AppManager.sessionUsername = sessionUsername;
     }
 
-    public static AppViewController getController(){
-        return AppViewController.getInstance();
+    public static MainViewController getController(){
+        return MainViewController.getInstance();
     }
 }

@@ -1,5 +1,6 @@
-package im.codechat.client.core.ui;
+package im.codechat.client.core.ui.control;
 
+import im.codechat.client.core.ui.control.ChatEntryContainer;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 

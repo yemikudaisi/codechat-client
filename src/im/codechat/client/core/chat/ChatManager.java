@@ -121,6 +121,13 @@ public class ChatManager {
         this.client = client;
     }
 
+    /**
+     * Gets the local Manager without the Jid resource as string.
+     * It ensures consistency of Jid string
+     *
+     * @param jid
+     * @return
+     */
     public static String getLocalDomainJid(Jid jid){
         return jid.getLocal()+"@"+jid.getDomain();
     }

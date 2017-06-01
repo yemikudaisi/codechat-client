@@ -1,11 +1,11 @@
-package im.codechat.client.ui.login;
+package im.codechat.client.view.login;
 
 import java.io.IOException;
 
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.ui.BaseViewController;
 import im.codechat.client.core.chat.ChatManager;
-import im.codechat.client.ui.main.AppViewController;
+import im.codechat.client.view.main.MainViewController;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,7 +42,7 @@ public class LoginViewController  extends BaseViewController {
 
         /**
         try {
-            new AppViewController().showView();
+            new MainViewController().showView();
         } catch (IOException e) {
             e.printStackTrace();
         }*/
@@ -94,7 +94,7 @@ public class LoginViewController  extends BaseViewController {
 
     private void loginSuccess(){
         loginProgressIndicator.setVisible(false);
-        AppViewController mainCtrl = AppManager.getController();
+        MainViewController mainCtrl = AppManager.getController();
         AppManager.setSessionUsername(getLoginUsername());
         try {
             mainCtrl.showView();

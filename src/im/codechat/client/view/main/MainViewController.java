@@ -1,18 +1,18 @@
-package im.codechat.client.ui.main;
+package im.codechat.client.view.main;
 
 import im.codechat.client.core.chat.message.InboundMessageListener;
 import im.codechat.client.core.chat.presence.InboundPresenceListener;
 import im.codechat.client.core.chat.presence.OutboundPresenceListener;
 import im.codechat.client.core.chat.presence.PresenceChangeEvent;
 import im.codechat.client.core.chat.presence.PresenceChangeListener;
-import im.codechat.client.core.ui.ContactsListViewCellFactory;
+import im.codechat.client.core.ui.control.factory.ContactsListViewCellFactory;
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.application.WorkspaceManager;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
 import im.codechat.client.core.ui.BaseViewController;
-import im.codechat.client.core.ui.ChatPane;
-import im.codechat.client.ui.components.ChatComponent;
-import im.codechat.client.ui.login.LoginViewController;
+import im.codechat.client.core.ui.control.ChatPane;
+import im.codechat.client.view.components.ChatComponent;
+import im.codechat.client.view.login.LoginViewController;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,15 +32,15 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * The description for AppViewController class
+ * The description for MainViewController class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 5/18/2017
  */
-public class AppViewController extends BaseViewController {
+public class MainViewController extends BaseViewController {
 
-    private static AppViewController instance;
+    private static MainViewController instance;
     private static final Object LOCK = new Object();
 
     @FXML MenuItem menuExitApplication;
@@ -50,7 +50,7 @@ public class AppViewController extends BaseViewController {
     @FXML Label loggedInUserName;
     @FXML ListView contactsListView;
 
-    public AppViewController(){
+    public MainViewController(){
     }
 
     @FXML
@@ -168,12 +168,12 @@ public class AppViewController extends BaseViewController {
         contactsListView.setItems(this.contactList);
     }
 
-    public static AppViewController getInstance() {
+    public static MainViewController getInstance() {
         // Synchronize on LOCK to ensure that we don't end up creating
         // two singletons.
         synchronized (LOCK){
             if(instance == null) {
-                AppViewController main= new AppViewController();
+                MainViewController main= new MainViewController();
                 instance = main;
                 return main;
             }

@@ -1,6 +1,6 @@
 package im.codechat.client.core.application;
 
-import im.codechat.client.ui.components.ChatComponent;
+import im.codechat.client.view.components.ChatComponent;
 
 import java.util.HashMap;
 

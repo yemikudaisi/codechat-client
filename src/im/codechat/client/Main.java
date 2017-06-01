@@ -1,6 +1,6 @@
 package im.codechat.client;
 
-import im.codechat.client.ui.login.LoginViewController;
+import im.codechat.client.view.login.LoginViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +15,7 @@ public class Main extends Application {
         //LoginViewController login = new LoginViewController();
         //login.setTitle("CodeChat");
         //login.showView(primaryStage);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/login/LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/login/LoginView.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("views/loginView.fxml"));
         //Scene scene = new Scene()
         LoginViewController login = new LoginViewController();

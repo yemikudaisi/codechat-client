@@ -4,6 +4,7 @@ import im.codechat.client.core.chat.extensions.codechat.exceptions.DuplicateSess
 import im.codechat.client.core.chat.extensions.codechat.exceptions.SessionNotFoundException;
 import rocks.xmpp.addr.Jid;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,41 +17,50 @@ import java.util.List;
 public interface ICodeChatManager {
 
     /**
-     * Searches for an offer store whose offer's instance has the specified key from
-     * a store container determine by the search type
+     * Searches for a session whose offer's instance has the specified key from
+     * a session container determine by the search type
      *
      *
-     * @param keyToFind The key to store to find
+     * @param keyToFind The key to session to find
      * @param searchType The type of container to conduct the search on
-     * @return The offer store with an offer that has the key
+     * @return The session with an offer that has the key
      * @throws SessionNotFoundException
      */
     CodeChatSession findSession(String keyToFind, CodeChatSessionContainers searchType) throws SessionNotFoundException;
 
     /**
-     * Searches for an offer store whose offer's instance has the specified key from
-     * a store container determine by the search type
+     * Searches for an session whose offer's instance has the specified key from
+     * a session container determine by the search type
      *
      *
-     * @param keyToFind The key to store to find
-     * @param containerToSearch The store container to search in
-     * @return The offer store with an offer that has the key
+     * @param keyToFind The key to match
+     * @param containerToSearch The session container to search in
+     * @return The session that contains an offer that matches the key
      * @throws SessionNotFoundException
      */
     CodeChatSession findSession(String keyToFind, List<CodeChatSession> containerToSearch) throws SessionNotFoundException;
 
     /**
-     * Remove an offer store from the pending store container
-     * and add it to approved guest store container if the CodeChat client is the Host,
-     * otherwise simply add the store it to approved hosts store container
+     * Initiates a session when a CodeChatOffer is to be sent to acontact
+     * @param to
+     * @param offer
+     * @param rootPath
+     * @throws DuplicateSessionException
+     */
+    void initiateSession(Jid to, CodeChatOffer offer, String rootPath) throws DuplicateSessionException;
+
+    /**
+     * Remove a session from the pending session container
+     * and add it to approved guest session container if the CodeChat client is the Host,
+     * otherwise simply add the session it to approved hosts session container
      *
-     * @param keyToApprove The key of the store to approve
+     * @param keyToApprove The key of the session to approve
      * @throws SessionNotFoundException
      */
     void approveGuestSession(String keyToApprove, CodeChatSessionApprovals approvalType) throws SessionNotFoundException;
 
     /**
-     * Approve an offer from an host and create
+     * Approve an offer from a host and create
      * a response of approval
      *
      * @return
@@ -58,27 +68,38 @@ public interface ICodeChatManager {
     CodeChatOfferResponse approveHostOffer(CodeChatOffer offerToApprove, Jid from);
 
     /**
-     * Deny an offer from an host and create
-     * a response of denial
+     * Deny an offer from a host and create
+     * a response for denial
      *
      * @return
      */
     CodeChatOfferResponse denyHostOffer(CodeChatOffer offerToDeny);
 
     /**
-     * Add an offer store to store container based on the containerr type specified.
-     * It is responsible for ensuring that duplicate offers does not exist in a container
-     * store while adding new store to a container.
+     * Add a CodeChatSession from a session container based on the container specified type.
+     * It ensures that duplicate offers do not exist in a container
+     * session prior to adding a new session to a container.
      *
-     * @param offerStore The store to add
+     * @param session The session to add
      * @param containerType The type of container to add the container to
      * @throws DuplicateSessionException
      */
-    void addOfferStore(CodeChatSession offerStore, CodeChatSessionContainers containerType) throws DuplicateSessionException;
+    void addSession(CodeChatSession session, CodeChatSessionContainers containerType) throws DuplicateSessionException;
 
     /**
-     * Get container for pending offer stores
-     * that was send out by an host (originator)
+     * Removes a CodeChatSession from a session container based on the container type specified.
+     * It is responsible for ensuring that duplicate offers does not exist in a container
+     * session while adding new session to a container.
+     *
+     * @param key The session key
+     * @param containerType The type of container to add the container to
+     * @throws DuplicateSessionException
+     */
+    void removeSession(String key, CodeChatSessionContainers containerType) throws SessionNotFoundException;
+
+    /**
+     * Get container for pending sessions
+     * that was send out by a host (originator)
      *
      * @return List containing pending host offers
      */
@@ -86,19 +107,33 @@ public interface ICodeChatManager {
 
 
     /**
-     * Get container for approved offer stores sent out by
+     * Get container for approved sessions sent out by
      * by a CodeChat (you) host that yielded a guest (other) approval
      *
      * @return List containing offers sent by host (you) approved by a guest (other)
      */
-    List<CodeChatSession> getApprovedGuestOfferStoreContainer();
+    List<CodeChatSession> getApprovedGuestSessionContainer();
 
     /**
-     * Get container for host (other) offers store who response was approved
+     * Get container for host (other) offers session who response was approved
      * by the CodeChat (you) guest
      *
      * @return List containing offers sent by host (other) approved by a guest (you)
      */
-    List<CodeChatSession> getApprovedHostOfferStoreContainer();
+    List<CodeChatSession> getApprovedHostSessionContainer();
+
+    /**
+     * Gets the list of root paths to session sessiond agains thier keys
+     *
+     * @return
+     */
+    HashMap<String, String> getSessionRootPaths();
+
+    /**
+     * Sets the list of session root paths against their keys
+     *
+     * @param sessionRootPaths The list of root paths
+     */
+    void setSessionRootPaths(HashMap<String, String> sessionRootPaths);
 
 }

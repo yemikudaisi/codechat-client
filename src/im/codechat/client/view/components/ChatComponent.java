@@ -1,12 +1,15 @@
-package im.codechat.client.ui.components;
+package im.codechat.client.view.components;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import im.codechat.client.core.application.AppManager;
+import im.codechat.client.core.application.CodeChatManager;
 import im.codechat.client.core.chat.extensions.codechat.CodeChatOffer;
 import im.codechat.client.core.chat.message.MessageDirections;
 import im.codechat.client.core.chat.message.MessageQueueItem;
 import im.codechat.client.core.ui.*;
+import im.codechat.client.core.ui.control.ChatEntryContainer;
+import im.codechat.client.core.ui.control.ChatPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -82,17 +85,16 @@ public class ChatComponent extends BaseComponentController {
         outboundMessageText.clear();
     }
 
-    public void shareFolder(){
+    public void startCodeChat(){
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Select project folder");
         File selectedDirectory = chooser.showDialog(AppManager.getController().getScene().getWindow());
         Message msg = AppManager.getChatManager().buildMessage(this.getJid());
         try {
             String key =  UUID.randomUUID().toString();
-            String uniquePath = selectedDirectory.getCanonicalPath();
+            String rootPath = selectedDirectory.getCanonicalPath();
             msg.addExtension(new CodeChatOffer(selectedDirectory.getName(),key));
-            CodeChatOffer offer = new
-            AppManager.getChatManager().getFolderShareOfferKeys().put(key, uniquePath);
+            CodeChatManager.getInstance().getSessionRootPaths().put(key, rootPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,7 +156,7 @@ public class ChatComponent extends BaseComponentController {
         btnShareFolder.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                shareFolder();
+                startCodeChat();
             }
         });
 
