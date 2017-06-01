@@ -1,8 +1,8 @@
 package im.codechat.client.core.application;
 
-import im.codechat.client.core.chat.extensions.codechat.*;
-import im.codechat.client.core.chat.extensions.codechat.exceptions.DuplicateSessionException;
-import im.codechat.client.core.chat.extensions.codechat.exceptions.SessionNotFoundException;
+import im.codechat.client.core.xmpp.extensions.codechat.*;
+import im.codechat.client.core.xmpp.extensions.codechat.exceptions.DuplicateSessionException;
+import im.codechat.client.core.xmpp.extensions.codechat.exceptions.SessionNotFoundException;
 import rocks.xmpp.addr.Jid;
 
 import java.util.ArrayList;

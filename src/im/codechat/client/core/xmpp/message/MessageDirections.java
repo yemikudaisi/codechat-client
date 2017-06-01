@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.message;
+package im.codechat.client.core.xmpp.message;
 
 /**
  * The description for ViewModes class

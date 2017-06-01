@@ -4,9 +4,9 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.application.CodeChatManager;
-import im.codechat.client.core.chat.extensions.codechat.CodeChatOffer;
-import im.codechat.client.core.chat.message.MessageDirections;
-import im.codechat.client.core.chat.message.MessageQueueItem;
+import im.codechat.client.core.xmpp.extensions.codechat.CodeChatOffer;
+import im.codechat.client.core.xmpp.message.MessageDirections;
+import im.codechat.client.core.xmpp.message.MessageQueueItem;
 import im.codechat.client.core.ui.*;
 import im.codechat.client.core.ui.control.ChatEntryContainer;
 import im.codechat.client.core.ui.control.ChatPane;
@@ -105,7 +105,7 @@ public class ChatComponent extends BaseComponentController {
         chatContactLabel = new Label();
 
         chatPane = new ChatPane();
-        chatPane.setId("chat-pane");
+        chatPane.setId("xmpp-pane");
         tabPane = new TabPane();
         chatTab = new Tab("Chat");
         chatTab.setClosable(false);

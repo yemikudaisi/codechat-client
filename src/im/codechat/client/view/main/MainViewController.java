@@ -1,10 +1,10 @@
 package im.codechat.client.view.main;
 
-import im.codechat.client.core.chat.message.InboundMessageListener;
-import im.codechat.client.core.chat.presence.InboundPresenceListener;
-import im.codechat.client.core.chat.presence.OutboundPresenceListener;
-import im.codechat.client.core.chat.presence.PresenceChangeEvent;
-import im.codechat.client.core.chat.presence.PresenceChangeListener;
+import im.codechat.client.core.xmpp.message.InboundMessageListener;
+import im.codechat.client.core.xmpp.presence.InboundPresenceListener;
+import im.codechat.client.core.xmpp.presence.OutboundPresenceListener;
+import im.codechat.client.core.xmpp.presence.PresenceChangeEvent;
+import im.codechat.client.core.xmpp.presence.PresenceChangeListener;
 import im.codechat.client.core.ui.control.factory.ContactsListViewCellFactory;
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.application.WorkspaceManager;
@@ -87,7 +87,7 @@ public class MainViewController extends BaseViewController {
             // Get all contacts on initalization
             this.contactList = FXCollections.observableList(new ArrayList<Contact>(rosterManager.getContacts()));
 
-            // Get presence for all contacts and add it to ChatManager presence queue
+            // Get presence for all contacts and add it to XmppManager presence queue
             PresenceManager manager = AppManager.getChatManager().getClient().getManager(PresenceManager.class);
             for (Contact c:this.contactList){
                 AppManager.getChatManager().addPresence(manager.getPresence(c.getJid()));

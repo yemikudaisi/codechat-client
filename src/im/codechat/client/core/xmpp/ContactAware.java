@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat;
+package im.codechat.client.core.xmpp;
 
 /**
  * The description for ContactAware class

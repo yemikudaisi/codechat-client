@@ -1,6 +1,6 @@
-package im.codechat.client.core.chat.extensions.codechat;
+package im.codechat.client.core.xmpp.extensions.codechat;
 
-import im.codechat.client.core.chat.ChatManager;
+import im.codechat.client.core.xmpp.XmppManager;
 import rocks.xmpp.addr.Jid;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -30,7 +30,7 @@ public abstract class CodeChatSessionComparator {
      * @return true if the extension is for the store
      */
     public boolean isForStore(CodeChatSession store, Jid responseFrom){
-        if(ChatManager.getLocalDomainJid(responseFrom).equals(ChatManager.getLocalDomainJid(store.getOfferTo()))){
+        if(XmppManager.getLocalDomainJid(responseFrom).equals(XmppManager.getLocalDomainJid(store.getOfferTo()))){
             if(this.key.equals(store.getOffer().getKey())){
                 return true;
             }

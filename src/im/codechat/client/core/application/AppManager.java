@@ -1,7 +1,7 @@
 package im.codechat.client.core.application;
 
 import im.codechat.client.Main;
-import im.codechat.client.core.chat.ChatManager;
+import im.codechat.client.core.xmpp.XmppManager;
 import im.codechat.client.view.main.MainViewController;
 import javafx.application.Platform;
 import rocks.xmpp.core.XmppException;
@@ -16,15 +16,15 @@ import java.util.prefs.Preferences;
  * @since 5/18/2017
  */
 public class AppManager {
-    private static ChatManager chatManager;
+    private static XmppManager chatManager;
     private static WorkspaceManager workspaceManager;
     private static  String sessionUsername =  "";
 
-    public static ChatManager getChatManager() {
+    public static XmppManager getChatManager() {
         return chatManager;
     }
 
-    public static void setChatManager(ChatManager chatManager) {
+    public static void setChatManager(XmppManager chatManager) {
         AppManager.chatManager = chatManager;
     }
 

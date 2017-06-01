@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.ui.BaseViewController;
-import im.codechat.client.core.chat.ChatManager;
+import im.codechat.client.core.xmpp.XmppManager;
 import im.codechat.client.view.main.MainViewController;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -34,7 +34,7 @@ public class LoginViewController  extends BaseViewController {
 
     public LoginViewController(){
         try {
-            ChatManager handler = ChatManager.instance();
+            XmppManager handler = XmppManager.instance();
             AppManager.setChatManager(handler);
         } catch (XmppException e) {
             e.printStackTrace();

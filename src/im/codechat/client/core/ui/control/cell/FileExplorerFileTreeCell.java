@@ -1,6 +1,6 @@
 package im.codechat.client.core.ui.control.cell;
 
-import im.codechat.client.core.chat.extensions.codechat.CodeChatFile;
+import im.codechat.client.core.xmpp.extensions.codechat.CodeChatFile;
 import im.codechat.client.core.ui.control.FileExplorerFileContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;

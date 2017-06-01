@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.message;
+package im.codechat.client.core.xmpp.message;
 
 import rocks.xmpp.core.stanza.model.Message;
 

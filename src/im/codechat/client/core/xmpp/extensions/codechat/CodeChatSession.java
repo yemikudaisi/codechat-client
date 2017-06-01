@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.extensions.codechat;
+package im.codechat.client.core.xmpp.extensions.codechat;
 
 import rocks.xmpp.addr.Jid;
 

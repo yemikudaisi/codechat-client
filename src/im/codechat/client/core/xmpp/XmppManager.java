@@ -1,8 +1,8 @@
-package im.codechat.client.core.chat;
+package im.codechat.client.core.xmpp;
 
-import im.codechat.client.core.chat.extensions.codechat.*;
-import im.codechat.client.core.chat.presence.PresenceChangeEvent;
-import im.codechat.client.core.chat.presence.PresenceChangeListener;
+import im.codechat.client.core.xmpp.extensions.codechat.*;
+import im.codechat.client.core.xmpp.presence.PresenceChangeEvent;
+import im.codechat.client.core.xmpp.presence.PresenceChangeListener;
 import rocks.xmpp.core.XmppException;
 import rocks.xmpp.core.sasl.AuthenticationException;
 import rocks.xmpp.core.session.*;
@@ -21,9 +21,9 @@ import java.util.HashMap;
  * @version 1.0
  * @since 15/5/17
  */
-public class ChatManager {
+public class XmppManager {
 
-    private static ChatManager instance;
+    private static XmppManager instance;
     private static Object LOCK = new Object();
 
     private final String loginServer = "192.168.138.128";
@@ -35,7 +35,7 @@ public class ChatManager {
     private HashMap<String, Presence> presences;
     private EventListenerList presenceChangeListeners = new EventListenerList();
 
-    public ChatManager() throws XmppException {
+    public XmppManager() throws XmppException {
         this.config = TcpConnectionConfiguration.builder()
                 .hostname(loginServer)
                 .port(5222)
@@ -67,12 +67,12 @@ public class ChatManager {
         }
     }
 
-    public static ChatManager instance() throws XmppException {
+    public static XmppManager instance() throws XmppException {
         // Synchronize on LOCK to ensure that we don't end up creating
         // two singletons.
         synchronized (LOCK){
             if(instance == null) {
-                ChatManager xmpp = new ChatManager();
+                XmppManager xmpp = new XmppManager();
                 instance = xmpp;
                 return xmpp;
             }

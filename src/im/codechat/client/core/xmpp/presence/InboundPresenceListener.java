@@ -1,8 +1,8 @@
-package im.codechat.client.core.chat.presence;
+package im.codechat.client.core.xmpp.presence;
 
 import im.codechat.client.core.application.AppManager;
 import im.codechat.client.core.application.WorkspaceManager;
-import im.codechat.client.core.chat.message.MessageDirections;
+import im.codechat.client.core.xmpp.message.MessageDirections;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
 import im.codechat.client.core.ui.control.ChatPane;
 import javafx.application.Platform;

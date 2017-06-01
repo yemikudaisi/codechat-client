@@ -1,6 +1,5 @@
-package im.codechat.client.core.chat.extensions.codechat;
+package im.codechat.client.core.xmpp.extensions.codechat;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 

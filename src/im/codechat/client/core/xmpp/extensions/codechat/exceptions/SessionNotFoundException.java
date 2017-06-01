@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.extensions.codechat.exceptions;
+package im.codechat.client.core.xmpp.extensions.codechat.exceptions;
 
 /**
  * The description for SessionNotFoundException class

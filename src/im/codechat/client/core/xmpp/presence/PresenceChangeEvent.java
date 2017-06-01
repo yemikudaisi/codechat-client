@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.presence;
+package im.codechat.client.core.xmpp.presence;
 
 /**
  * The description for PresenceChangeEvent class

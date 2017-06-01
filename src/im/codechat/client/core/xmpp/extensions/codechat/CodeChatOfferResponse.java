@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.extensions.codechat;
+package im.codechat.client.core.xmpp.extensions.codechat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Represents a response to a code chat offer
+ * Represents a response to a code xmpp offer
  *
  * @author Yemi Kudaisi
  * @version 1.0

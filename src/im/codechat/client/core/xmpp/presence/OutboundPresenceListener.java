@@ -1,4 +1,4 @@
-package im.codechat.client.core.chat.presence;
+package im.codechat.client.core.xmpp.presence;
 
 import im.codechat.client.core.application.AppManager;
 import javafx.beans.value.ChangeListener;
@@ -19,7 +19,7 @@ public class OutboundPresenceListener implements ChangeListener<String> {
             case "Available":
                 AppManager.getChatManager().changePresence(null);
                 break;
-            case "Free to chat":
+            case "Free to xmpp":
                 AppManager.getChatManager().changePresence(Presence.Show.CHAT);
                 break;
             case "Busy":
