@@ -122,12 +122,9 @@ public class ChatComponent extends BaseComponentController {
         outboundMessageText.setMinHeight(50);
         outboundMessageText.setPrefHeight(50);
         HBox.setHgrow(outboundMessageText, Priority.ALWAYS);
-        outboundMessageText.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
-                if (newValue != "")
-                    btnSendChat.setDisable(false);
-            }
+        outboundMessageText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != "")
+                btnSendChat.setDisable(false);
         });
 
         btnSendChat = new Button();
@@ -138,12 +135,7 @@ public class ChatComponent extends BaseComponentController {
         sendIconView.setSize("15px");
         btnSendChat.setGraphic(sendIconView);
         btnSendChat.setAlignment(Pos.TOP_RIGHT);
-        btnSendChat.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                sendChat();
-            }
-        });
+        btnSendChat.setOnAction(e -> sendChat());
 
         btnShareFolder = new Button();
         btnShareFolder.getStyleClass().add("accent-button");
@@ -153,12 +145,7 @@ public class ChatComponent extends BaseComponentController {
                 .build();
         btnShareFolder.setGraphic(folderUploadIconView);
         btnShareFolder.setAlignment(Pos.TOP_RIGHT);
-        btnShareFolder.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                startCodeChat();
-            }
-        });
+        btnShareFolder.setOnAction(e -> startCodeChat());
 
         AnchorPane rootPane = new AnchorPane();
         VBox rootBox = new VBox();

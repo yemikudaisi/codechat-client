@@ -32,8 +32,8 @@ public class ContactsListViewCellFactory implements Callback<ListView<Contact>,L
         ListCell<Contact> cell = new ListCell<Contact>(){
 
             @Override
-            protected void updateItem(Contact contact, boolean bln) {
-                super.updateItem(contact, bln);
+            protected void updateItem(Contact contact, boolean isEmpty) {
+                super.updateItem(contact, isEmpty);
 
                 setGraphic(null);
                 setText(null);
