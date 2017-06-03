@@ -230,12 +230,3 @@
     -fx-background-color: #2f72a9;
 }
 
-.material.text-field {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-border-width: 0 0 5px 0;
-    -fx-text-fill: red;
-    -fx-display-caret: false;
-    -fx-prompt-text-fill: #cccccc;
-    -fx-highlight-fill: green;
-}

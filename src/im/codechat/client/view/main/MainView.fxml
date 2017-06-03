@@ -81,7 +81,7 @@
                            </VBox.margin>
                                     </ComboBox>
                                     <HBox>
-                                        <TextField HBox.hgrow="ALWAYS" styleClass="material" promptText="Seach contacts" />
+                                        <TextField promptText="Seach contacts" styleClass="material" HBox.hgrow="ALWAYS" />
                                         <Button alignment="TOP_RIGHT" styleClass="accent-button">
                                             <graphic>
                                                 <MaterialDesignIconView glyphName="MAGNIFY" glyphStyle="-fx-fill: white" size="14PX" />

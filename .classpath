@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="D:/libs/jars/babbler-0.7.4.jar"/>
 	<classpathentry kind="lib" path="D:/Downloads/fontawesomefx-8.9.jar"/>
+	<classpathentry kind="lib" path="D:/libs/jars/rsyntaxtextarea-3.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="D:/libs/jars/jfoenix.jar"/>
 	<classpathentry kind="output" path="out/production/codechat"/>
 </classpath>

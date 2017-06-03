@@ -14,11 +14,6 @@ import javafx.scene.layout.HBox;
  */
 public class FileExplorerTreeCell extends TreeCell<CodeChatFile> {
     //private final FileExplorerFileContextMenu contextMenu;
-
-    public FileExplorerTreeCell() {
-
-    }
-
     @Override
     public void updateItem(CodeChatFile file, boolean empty) {
         super.updateItem(file, empty);
@@ -30,7 +25,8 @@ public class FileExplorerTreeCell extends TreeCell<CodeChatFile> {
             HBox hbox = new HBox();
             Label name = new Label();
             name.setText(file.getName());
-
+            hbox.getChildren().add(name);
+            setGraphic(hbox);
         }
 
     }

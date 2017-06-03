@@ -20,6 +20,10 @@ public class CodeChatFile {
     private CodeChatFile parent;
     private List<CodeChatFile> children;
 
+    public CodeChatFile(String value){
+        name = new SimpleStringProperty(value);
+    }
+
     @Override
     public String toString(){
         return this.name.getValue();

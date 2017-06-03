@@ -20,22 +20,17 @@ public class CodeChatOfferResponse extends CodeChatSessionComparator {
     @XmlAttribute
     private boolean accept;
 
-    @XmlAttribute
-    private String key;
-
     private CodeChatOfferResponse() {
         // Private no-args default constructor for JAXB.
     }
 
     public CodeChatOfferResponse(boolean response, CodeChatOffer offer) {
-
         this.accept = response;
-        this.key = offer.getKey();
+        this.setKey(offer.getKey());
     }
 
     public boolean isAccept() {
         return accept;
     }
 
-    public String getKey(){ return this.key; }
 }
