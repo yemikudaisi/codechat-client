@@ -12,12 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //LoginViewController login = new LoginViewController();
-        //login.setTitle("CodeChat");
-        //login.showView(primaryStage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view/login/LoginView.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("views/loginView.fxml"));
-        //Scene scene = new Scene()
         LoginViewController login = new LoginViewController();
         loader.setController(login);
         Parent root = loader.load();
