@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import im.codechat.client.core.ui.control.ChatPane?>
+
+<ChatPane fx:id="rootPane" prefHeight="301.0" prefWidth="528.0" stylesheets="@../main/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="im.codechat.client.view.components.ChatComponent">
+    <VBox fillWidth="true" prefHeight="186.0" prefWidth="488.0" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
+        <BorderPane>
+            <left>
+                <Label fx:id="chatContactLabel" text="Yemi" />
+            </left>
+            <right><HBox alignment="TOP_RIGHT">
+                <Button text="Details" />
+                <Button text="Conference" />
+                <Button text="Upload file" />
+                <Button text="History" />
+                <Button text="Encryption" />
+                <BorderPane.margin>
+                    <Insets bottom="10.0" />
+                </BorderPane.margin>
+                <padding>
+                    <Insets left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </HBox></right>
+        </BorderPane>
+        <GridPane styleClass="chat-area"  minHeight="0.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" />
+                <RowConstraints minHeight="10.0" />
+                <RowConstraints minHeight="10.0" />
+                <RowConstraints minHeight="10.0" />
+                <RowConstraints minHeight="10.0" />
+            </rowConstraints>
+            <children>
+
+                <Label styleClass="chat-bubble-inbound" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                    Hello, can I speak offerTo you german colleague ?
+                </Label>
+                <Label styleClass="chat-bubble-time" GridPane.halignment="LEFT" GridPane.rowIndex="1">16:53:44</Label>
+                <Label styleClass="chat-bubble-outbound" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    Sure you can, please wait while I connect you offerTo him
+                </Label>
+                <Label styleClass="chat-bubble-time" GridPane.halignment="RIGHT" GridPane.rowIndex="3">16:53:44</Label>
+                <Label styleClass="chat-bubble-default" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                    User has logged out
+                </Label>
+            </children>
+            <VBox.margin>
+            <Insets bottom="10.0" />
+            </VBox.margin>
+        </GridPane>
+        <TextArea fx:id="outboundMessageText" maxHeight="50" minHeight="50" prefHeight="50" />
+    </VBox>
+</ChatPane>
