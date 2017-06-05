@@ -6,14 +6,12 @@ import im.codechat.client.core.xmpp.extensions.codechat.CodeChatSession;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatState;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingNode;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.fxmisc.flowless.VirtualizedScrollPane;
-import org.fxmisc.richtext.CodeArea;
 
 import java.util.ArrayList;
 
