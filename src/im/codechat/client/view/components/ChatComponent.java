@@ -50,6 +50,11 @@ public class ChatComponent extends BaseComponentController {
     Label chatContactLabel;
     Button btnSendChat;
     Button btnShareFolder;
+    Button btnStartConference;
+    Button btnUploadFile;
+    Button btnShowContactDetails;
+    Button btnShowContactHistory;
+    Button btnEncryptConversation;
     List<MessageQueueItem> messageQueueItems;
 
     private String jid;
@@ -151,34 +156,86 @@ public class ChatComponent extends BaseComponentController {
         AnchorPane rootPane = new AnchorPane();
         VBox rootBox = new VBox();
 
-        BorderPane topPane = new BorderPane();
-        topPane.setLeft(chatContactLabel);
+        //BorderPane topPane = new BorderPane();
+        HBox topBox = new HBox();
+        topBox.getStyleClass().add("chat-component-top-box");
+        HBox topBoxLabel = new HBox();
+        topBoxLabel.getChildren().add(chatContactLabel);
+        //topPane.setLeft(chatContactLabel);
 
-        HBox hBox1 = new HBox();
-        hBox1.getChildren().add(new Button("Details"));
-        hBox1.getChildren().add(new Button("Conference"));
-        hBox1.getChildren().add(new Button("Upload file"));
-        hBox1.getChildren().add(new Button("History"));
-        hBox1.getChildren().add(new Button("Encryption"));
-        hBox1.setPadding(new Insets(0,0,10,0));
-        topPane.setRight(hBox1);
+        HBox topBoxButtons = new HBox();
+
+        btnShowContactDetails = new Button();
+        btnStartConference = new Button();
+        btnUploadFile = new Button();
+        btnShowContactHistory = new Button();
+        btnEncryptConversation = new Button();
+
+        btnShowContactDetails.setGraphic(MaterialDesignIconBuilder.get(MaterialDesignIconBuilder.class)
+                .fill(Color.GRAY)
+                .icon(MaterialDesignIcon.MORE)
+                .size("16px")
+                .build());
+        btnShowContactDetails.getStyleClass().add("chat-action-button");
+
+        btnStartConference.setGraphic(MaterialDesignIconBuilder.get(MaterialDesignIconBuilder.class)
+                .fill(Color.GRAY)
+                .icon(MaterialDesignIcon.GOOGLE_CIRCLES_GROUP)
+                .size("16px")
+                .build());
+        btnStartConference.getStyleClass().add("chat-action-button");
+
+        btnUploadFile.setGraphic(MaterialDesignIconBuilder.get(MaterialDesignIconBuilder.class)
+                .fill(Color.GRAY)
+                .icon(MaterialDesignIcon.UPLOAD)
+                .size("16px")
+                .build());
+        btnUploadFile.getStyleClass().add("chat-action-button");
+
+        btnShowContactHistory.setGraphic(MaterialDesignIconBuilder.get(MaterialDesignIconBuilder.class)
+                .fill(Color.GRAY)
+                .icon(MaterialDesignIcon.CLOCK)
+                .size("16px")
+                .build());
+        btnShowContactHistory.getStyleClass().add("chat-action-button");
+
+        btnEncryptConversation.setGraphic(MaterialDesignIconBuilder.get(MaterialDesignIconBuilder.class)
+                .fill(Color.GRAY)
+                .icon(MaterialDesignIcon.FILE_LOCK)
+                .size("16px")
+                .build());
+        btnEncryptConversation.getStyleClass().add("chat-action-button");
+
+        topBoxButtons.getChildren().add(btnShowContactDetails);
+        topBoxButtons.getChildren().add(btnStartConference);
+        topBoxButtons.getChildren().add(btnUploadFile);
+        topBoxButtons.getChildren().add(btnShowContactHistory);
+        topBoxButtons.getChildren().add(btnEncryptConversation);
+        topBoxButtons.setSpacing(5);
+        Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        topBox.getChildren().addAll(topBoxLabel,spacer,topBoxButtons);
+        topBox.setPadding(new Insets(10));
+        //topPane.setRight(topBoxButtons);
 
         HBox hBox2 = new HBox();
+        hBox2.getStyleClass().add("chat-entry-area");
         hBox2.getChildren().add(outboundMessageText);
         hBox2.getChildren().add(btnSendChat);
         hBox2.getChildren().add(btnShareFolder);
         hBox2.setSpacing(5);
+        hBox2.setPadding(new Insets(10,20,10,10));
 
-        rootBox.getChildren().add(topPane);
+        rootBox.getChildren().add(topBox);
         rootBox.getChildren().add(chatArea);
         VBox.setMargin(chatArea, new Insets(0,0,10,0));
         rootBox.getChildren().add(hBox2);
         rootBox.setFillWidth(true);
 
         AnchorPane.setTopAnchor(rootBox,10.0);
-        AnchorPane.setRightAnchor(rootBox,20.0);
-        AnchorPane.setLeftAnchor(rootBox,20.0);
-        AnchorPane.setBottomAnchor(rootBox,20.0);
+        AnchorPane.setRightAnchor(rootBox,0.0);
+        AnchorPane.setLeftAnchor(rootBox,0.0);
+        AnchorPane.setBottomAnchor(rootBox,0.0);
 
         AnchorPane chatContent = new AnchorPane();
         chatContent.getChildren().add(rootBox);

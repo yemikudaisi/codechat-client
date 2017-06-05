@@ -9,9 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import rocks.xmpp.core.stanza.model.Presence;
@@ -40,22 +43,30 @@ public class ContactsListViewCellFactory implements Callback<ListView<Contact>,L
                 if (contact != null) {
                     HBox hBox = new HBox();
 
-                    Label name = new Label(contact.getName());
+                    Label name = new Label(contact.getName().substring(0, 1).toUpperCase() + contact.getName().substring(1));
                     name.setFont(new Font(14));
                     name.setPadding(new Insets(10,0,10,0));
+                    name.setAlignment(Pos.TOP_LEFT);
+                    name.setTextFill(Color.WHITE);
+                    name.setFont(Font.font(
+                            Font.getDefault().getFamily(),
+                            FontWeight.BOLD, FontPosture.REGULAR,
+                            Font.getDefault().getSize() + 2
+                    ));
 
                     Text status = new Text();
                     Font statusFont = Font.font(
                             Font.getDefault().getFamily(),
-                            FontPosture.ITALIC,
+                            //FontPosture.ITALIC,
                             Font.getDefault().getSize()
                     );
-                    status.setFill(Color.GREY);
+                    status.setFill(Color.web("#CCCCCC"));
                     status.setFont(statusFont);
+                    name.setAlignment(Pos.TOP_LEFT);
 
                     MaterialDesignIconView userIcon = new MaterialDesignIconView(MaterialDesignIcon.ACCOUNT);
                     //Presence p = AppManager.getChatManager().getClient().getManager(PresenceManager.class).getPresence(contact.getJid());
-                    userIcon.setSize("24px");
+                    userIcon.setSize("28px");
                     HashMap<String, Presence> list = AppManager.getChatManager().getPresences();
                     if(list.containsKey(AppManager.getChatManager().getLocalDomainJid(contact.getJid()))){
 
@@ -98,8 +109,20 @@ public class ContactsListViewCellFactory implements Callback<ListView<Contact>,L
                         userIcon.setFill(Color.GREY);
                     }
 
-                    hBox.getChildren().addAll(userIcon, name, status);
-                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    HBox left = new HBox();
+                    VBox right = new VBox();
+                    name.setPadding(new Insets(0));
+                    name.setAlignment(Pos.TOP_LEFT);
+                    right.setAlignment(Pos.TOP_LEFT);
+                    VBox.setMargin(userIcon,new Insets(10,0,0,0));
+                    //VBox.setVgrow(userIcon, Priority.ALWAYS);
+                    //VBox.setVgrow(right, Priority.ALWAYS);
+                    //VBox.setVgrow(right, Priority.ALWAYS);
+                    left.getChildren().add(userIcon);
+                    right.getChildren().addAll(name,status);
+                    //hBox.getChildren().addAll(userIcon, name, status);
+                    //hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.getChildren().addAll(left,right);
                     hBox.setSpacing(10);
 
                     setGraphic(hBox);

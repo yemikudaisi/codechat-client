@@ -20,8 +20,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import rocks.xmpp.core.XmppException;
 import rocks.xmpp.im.roster.RosterManager;
 import rocks.xmpp.im.roster.model.Contact;
@@ -82,24 +85,19 @@ public class MainViewController extends BaseViewController {
     public void initialize(URL location, ResourceBundle resources) {
         loggedInUserName.setText(AppManager.getSessionUsername());
         RosterManager rosterManager = AppManager.getChatManager().getClient().getManager(RosterManager.class);
+        masterPane.setEffect(new InnerShadow(BlurType.THREE_PASS_BOX, Color.GRAY,2,0,0,0));
 
         Platform.runLater(() -> {
             // Get all contacts on initalization
             this.contactList = FXCollections.observableList(new ArrayList<Contact>(rosterManager.getContacts()));
-
-            // Get presence for all contacts and add it to XmppManager presence queue
-            PresenceManager manager = AppManager.getChatManager().getClient().getManager(PresenceManager.class);
-            for (Contact c:this.contactList){
-                AppManager.getChatManager().addPresence(manager.getPresence(c.getJid()));
-            }
-            this.refreshContactsListView();
+            this.getContactsPresence(rosterManager);
         });
 
         rosterManager.addRosterListener( e -> {
             Platform.runLater(() -> {
-                new Alert(Alert.AlertType.ERROR, "roster").showAndWait();
-                this.contactList = FXCollections.observableArrayList(new ArrayList<Contact>(e.getUpdatedContacts()));
-                refreshContactsListView();
+                //new Alert(Alert.AlertType.ERROR, "roster").showAndWait();
+                //this.contactList = FXCollections.observableArrayList(new ArrayList<Contact>(e.get));
+                this.getContactsPresence(rosterManager);
             });
 
         });
@@ -111,6 +109,17 @@ public class MainViewController extends BaseViewController {
         comboPresence.valueProperty().addListener(new OutboundPresenceListener());
 
         initializeUIComponents();
+    }
+
+    private void getContactsPresence(RosterManager rosterManager){
+        // Get all contacts on initalization
+        this.contactList = FXCollections.observableList(new ArrayList<Contact>(rosterManager.getContacts()));
+        // Get presence for all contacts and add it to XmppManager presence queue
+        PresenceManager manager = AppManager.getChatManager().getClient().getManager(PresenceManager.class);
+        for (Contact c:this.contactList){
+            AppManager.getChatManager().addPresence(manager.getPresence(c.getJid()));
+        }
+        this.refreshContactsListView();
     }
 
     private void initializeUIComponents(){

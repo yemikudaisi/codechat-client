@@ -1,6 +1,6 @@
 .root {
     -fx-background-color: white;
-    -fx-border-width: 0px 1px 0px 0px;
+
 }
 
 #main-menu.menu-bar, #main-menu .menu-item, #main-menu .menu:focused, #main-menu .menu:focused .label,  #main-menu .context-menu, .menu-hbox{
@@ -9,6 +9,7 @@
 
 #main-menu.menu-bar{
     -fx-padding: 15px 10px;
+    -fx-font-family: "SansSerif";
 }
 
 #main-menu .menu{
@@ -25,7 +26,6 @@
 #main-menu .menu .label, #main-menu .menu:focused, #main-menu .menu-item .label{
     -fx-background-color: #2A333E;
     -fx-text-fill: #cccccc;
-    -fx-font-weight: bold;
 }
 
 #main-menu .context-menu {
@@ -46,12 +46,20 @@
 
 .combo-box{
     -fx-background-color: transparent;
+    -fx-border-width: 0;
 }
-.combo-box .arrow,
+
+.combo-box .label{
+    -fx-text-fill: #cccccc;
+}
+
 .combo-box .arrow-button{
     -fx-background-color: transparent;
 }
 
+.combo-box .arrow{
+    -fx-background-color: #cccccc;
+}
 
 /* this part is from  default stiles fxrt.jar!/com/sun/javafx/scene/control/skin/caspian/caspian.css */
 .combo-box:hover{
@@ -74,6 +82,25 @@
 }
 
 
+.master-grid{
+    -fx-background-color: #3A4756;
+    -fx-text-fill: #cccccc;
+}
+
+.contact-search-hbox, .contact-search-hbox .search-icon, .contact-search-hbox .text-field{
+    -fx-background-color: #53667B;
+    -fx-border-width: 0;
+}
+
+.contact-search-hbox{
+    -fx-border-width: 0,0,1px,0;
+}
+
+.contact-search-hbox{
+    -fx-border-width: 1px;
+    -fx-background-radius: 20px;
+    -fx-padding: 5px;
+}
 
 .messenger-container{
     -fx-padding: 5px;
@@ -87,20 +114,22 @@
 }
 
 #master-tab.tab-pane{
-    -fx-border-style: none;
+    -fx-border-style: solid;
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #53667B;
 }
 
 #master-tab.tab-pane .tab, #master-tab.tab-pane .tab:selected, #master-tab.tab-pane .tab-header-area .tab-header-background
 {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #3A4756;
     -fx-border-style: none;
 }
+
 #master-tab.tab-pane .tab{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #3A4756;
     -fx-padding: 0px 10px 5px 10px;
 }
 #master-tab.tab-pane .tab:selected{
-    -fx-background-color: #FFFFFF;
     -fx-border-style: solid;
     -fx-border-color: #3888cb;
     -fx-border-width: 0px 0px 2px 0px;
@@ -108,7 +137,7 @@
 
 #master-tab .tab:selected .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #3888cb;
+    -fx-text-fill: #FFFFFF;
 }
 
 #master-tab.tab-pane .tab-header-area {
@@ -119,21 +148,30 @@
 
 #master-tab.tab-pane .tab-header-area .tab-header-background{
     -fx-border-style: solid;
-    -fx-border-color: #E5E5E7;
-    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #3A4756;
+    -fx-border-width: 0 0 2px 0;
 }
 #master-tab .tab .tab-label{
 }
 
 #master-tab .tab .tab-label,#master-tab .tab .tab-label:focused {
     -fx-alignment: CENTER;
-    -fx-text-fill: #828282;
+    -fx-text-fill: #CCCCCC;
     -fx-font-size: 12px;
-    -fx-font-weight: bold;
     -fx-border-style: none;
 }
 
 
+.contact-list, .contacts-list .list-cell:even, .contacts-list .list-cell:odd, .contacts-list .list-cell:selected{
+    -fx-background-color: #3A4756;
+}
+
+.contact-list .list-cell{ -fx-padding: 5px;}
+
+.contacts-list .list-cell:focused{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #5d718a;
+}
 
 #chat-pane .tab-pane{
     -fx-border-width: 0;
@@ -192,6 +230,16 @@
     -fx-background-radius: 0;
 }
 
+.chat-action-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.chat-action-button:hover{-fx-background-color: #9e9fa9;}
+.chat-action-button:pressed{-fx-background-color: #4a4a4f;}
+
 .accent-button:hover{-fx-background-color: #419fee}
 .accent-button:pressed{-fx-background-color: #2a6597}
 .accent-button:disabled{-fx-background-color: #626061
@@ -220,13 +268,58 @@
     -fx-background-color: #A4D9F1;
     -fx-alignment: top-right;
 }
-
-.contacts-list .list-cell:even, .contacts-list .list-cell:odd, .contacts-list .list-cell:selected{
-    -fx-background-color: white;
+.chat-component-top-box{
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #CCCCCC;
 }
 
-.contacts-list .list-cell:focused{
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #2f72a9;
+.chat-entry-area{
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #CCCCCC;
+    -fx-background-color: #FFFFFF;
 }
+
+.chat-entry-area .text-area{
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.keyword {
+    -fx-fill: purple;
+    -fx-font-weight: bold;
+}
+.semicolon {
+    -fx-font-weight: bold;
+}
+.paren {
+    -fx-fill: firebrick;
+    -fx-font-weight: bold;
+}
+.bracket {
+    -fx-fill: darkgreen;
+    -fx-font-weight: bold;
+}
+.brace {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+.string {
+    -fx-fill: blue;
+}
+
+.comment {
+    -fx-fill: cadetblue;
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: #f2f9fc;
+}
+
+
+
 

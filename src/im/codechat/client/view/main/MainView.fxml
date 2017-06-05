@@ -4,7 +4,6 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -22,7 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="558.0" prefWidth="878.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
         <BorderPane fx:id="containerGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -30,21 +29,34 @@
                       <left>
                           <MenuBar id="main-menu">
                               <menus>
-                                  <Menu mnemonicParsing="false" text="File">
+                                  <Menu mnemonicParsing="false" text="FILE">
                                       <items>
                                           <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
                                           <MenuItem fx:id="menuExitApplication" mnemonicParsing="false" onAction="#exitAction" text="Exit" />
                                       </items>
                                   </Menu>
-                                  <Menu mnemonicParsing="false" text="Contacts" />
-                                  <Menu mnemonicParsing="false" text="Actions" />
-                                  <Menu mnemonicParsing="false" text="Help" />
+                                  <Menu mnemonicParsing="false" text="CONTACTS" />
+                                  <Menu mnemonicParsing="false" text="ACTIONS" />
+                                  <Menu mnemonicParsing="false" text="HELP" />
                               </menus>
                           </MenuBar>
                       </left>
-
                     <right>
                         <HBox alignment="CENTER_RIGHT">
+                            <ComboBox fx:id="comboPresence" prefHeight="27.0" prefWidth="295.0" promptText="Status">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Available" />
+                                        <String fx:value="Free offerTo chat" />
+                                        <String fx:value="Busy" />
+                                        <String fx:value="Away" />
+                                        <String fx:value="Extended away" />
+                                    </FXCollections>
+                                </items>
+                                <VBox.margin>
+                                    <Insets right="10.0" />
+                                </VBox.margin>
+                            </ComboBox>
                             <MaterialDesignIconView glyphName="ACCOUNT" glyphStyle="-fx-fill: white" size="14PX" />
                             <Label fx:id="loggedInUserName" text="Yemi" />
                      <BorderPane.margin>
@@ -55,7 +67,7 @@
                 </BorderPane>
             </top>
                 <left>
-                    <GridPane>
+                    <GridPane styleClass="master-grid">
                         <columnConstraints>
                             <ColumnConstraints hgrow="ALWAYS" />
                         </columnConstraints>
@@ -64,29 +76,21 @@
                             <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
                         </rowConstraints>
                         <children>
-                            <VBox alignment="TOP_LEFT" maxWidth="300" minWidth="200" prefWidth="300" styleClass="messenger-container">
+                            <VBox alignment="TOP_LEFT" maxWidth="240" minWidth="200" prefWidth="300" styleClass="messenger-container">
                                 <children>
-                                    <ComboBox fx:id="comboPresence" prefHeight="27.0" prefWidth="295.0" promptText="Status">
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Available" />
-                                                <String fx:value="Free offerTo chat" />
-                                                <String fx:value="Busy" />
-                                                <String fx:value="Away" />
-                                                <String fx:value="Extended away" />
-                                            </FXCollections>
-                                        </items>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                                    </ComboBox>
-                                    <HBox>
-                                        <TextField promptText="Seach contacts" styleClass="material" HBox.hgrow="ALWAYS" />
-                                        <Button alignment="TOP_RIGHT" styleClass="accent-button">
+                                    <HBox styleClass="contact-search-hbox">
+                                        <TextField promptText="Seach contacts" HBox.hgrow="ALWAYS" />
+                                        <Label alignment="TOP_RIGHT" styleClass="search-icon" VBox.vgrow="ALWAYS">
                                             <graphic>
-                                                <MaterialDesignIconView glyphName="MAGNIFY" glyphStyle="-fx-fill: white" size="14PX" />
+                                                <MaterialDesignIconView glyphName="MAGNIFY" glyphStyle="-fx-fill: #cccccc" size="18PX" textAlignment="RIGHT" />
                                             </graphic>
-                                        </Button>
+                              <padding>
+                                 <Insets right="5.0" top="3.0" />
+                              </padding>
+                                        </Label>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
                                      </HBox>
 
                                 </children>
@@ -98,17 +102,17 @@
                             <HBox fillHeight="true" GridPane.rowIndex="1">
                                 <TabPane id="master-tab" style="-fx-background-color: white; " tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
                                     <tabs>
-                                        <Tab text="Contacts">
+                                        <Tab text="CONTACTS">
                                             <content>
                                                 <ListView fx:id="contactsListView" styleClass="contacts-list" />
                                             </content>
                                         </Tab>
-                                        <Tab text="Group">
+                                        <Tab text="GROUPS">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                             </content>
                                         </Tab>
-                                        <Tab text="Conference">
+                                        <Tab text="CONFERENCE">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                             </content>
