@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: rocks.xmpp:xmpp-core:0.7.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rocks.xmpp/xmpp-core/0.7.4/58d4c79408dee8a958d1fff4acfdf6220598f275/xmpp-core-0.7.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rocks.xmpp/xmpp-core/0.7.4/b24c76e2d686500921fc80adf3c2ed6847f727cb/xmpp-core-0.7.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

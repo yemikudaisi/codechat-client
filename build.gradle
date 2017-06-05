@@ -26,7 +26,18 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     mavenLocal()
     mavenCentral()
+    maven { url "https://jitpack.io" }
     //jcenter()
+}
+
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+            includes = ["**/*.fxml", "**/*.css", "**/*.ttf"]
+        }
+    }
 }
 
 dependencies {
@@ -41,8 +52,9 @@ dependencies {
     compile 'rocks.xmpp:xmpp-core-client:0.7.4'
     compile 'rocks.xmpp:xmpp-extensions-client:0.7.4'
     compile 'de.jensd:fontawesomefx:8.9'
-    compile 'org.fxmisc.richtext:richtextfx:0.6.10'
-    compile 'org.fxmisc.flowless:flowless:0.5.2'
+    compile 'com.github.TomasMikula:RichTextFX:v0.7-M5'
+    //compile 'org.fxmisc.richtext:richtextfx:0.6.10'
+    //compile 'org.fxmisc.flowless:flowless:0.5.2'
 }
 
 
