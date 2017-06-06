@@ -38,27 +38,32 @@ public class CodeChatFile {
     }
 
     public boolean isDirectory() {
+
         return isDirectory.getValue();
     }
 
     public void setIsDirectory(boolean isDirectory) {
+
         this.isDirectory.setValue(isDirectory);
     }
 
-    public SimpleStringProperty getRelativePath() {
-        return relativePath;
+    public String getRelativePath() {
+
+        return relativePath.getValue();
     }
 
-    public void setRelativePath(SimpleStringProperty relativePath) {
-        this.relativePath = relativePath;
+    public void setRelativePath(String relativePath) {
+
+        this.relativePath.setValue(relativePath);
     }
 
-    public SimpleStringProperty getExtension() {
-        return extension;
+    public String getExtension() {
+
+        return extension.getValue();
     }
 
-    public void setExtension(SimpleStringProperty extension) {
-        this.extension = extension;
+    public void setExtension(String extension) {
+        this.extension.setValue(extension);
     }
 
     public CodeChatFile getParent() {

@@ -53,6 +53,7 @@ dependencies {
     compile 'rocks.xmpp:xmpp-extensions-client:0.7.4'
     compile 'de.jensd:fontawesomefx:8.9'
     compile 'com.github.TomasMikula:RichTextFX:v0.7-M5'
+    compile 'controlsfx:controlsfx:8.40.12'
     //compile 'org.fxmisc.richtext:richtextfx:0.6.10'
     //compile 'org.fxmisc.flowless:flowless:0.5.2'
 }
