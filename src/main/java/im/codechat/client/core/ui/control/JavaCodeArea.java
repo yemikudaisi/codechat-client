@@ -1,12 +1,17 @@
 package im.codechat.client.core.ui.control;
 
+import javafx.concurrent.Task;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,20 +78,48 @@ public class JavaCodeArea extends CodeArea {
             "}"
     });
 
+    private ExecutorService executor;
 
     public JavaCodeArea() {
+        super();
+        executor = Executors.newSingleThreadExecutor();
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.richChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved())) // XXX
-                .subscribe(change -> {
-                    this.setStyleSpans(0, computeHighlighting(this.getText()));
-                });
+                .successionEnds(Duration.ofMillis(500))
+                .supplyTask(this::computeHighlightingAsync)
+                .awaitLatest(this.richChanges())
+                .filterMap(t -> {
+                    if(t.isSuccess()) {
+                        return Optional.of(t.get());
+                    } else {
+                        t.getFailure().printStackTrace();
+                        return Optional.empty();
+                    }
+                })
+                .subscribe(this::applyHighlighting);
         this.replaceText(0, 0, sampleCode);
-        Object o = this.getClass().getResource("java-keywords.css").toExternalForm();
-        this.getStylesheets().add(this.getClass().getResource("java-keywords.css").toExternalForm());
+        //this.getStylesheets().add(this.getClass().getResource("java-keywords.css").toExternalForm());
     }
 
-    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
+
+    private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
+        String text = this.getText();
+        Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
+            @Override
+            protected StyleSpans<Collection<String>> call() throws Exception {
+                return computeHighlighting(text);
+            }
+        };
+        executor.execute(task);
+        return task;
+    }
+
+    private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
+        this.setStyleSpans(0, highlighting);
+    }
+
+    public static StyleSpans<Collection<String>> computeHighlighting(String text) {
         Matcher matcher = PATTERN.matcher(text);
         int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import im.codechat.client.core.ui.control.ChatPane?>
 
-<ChatPane fx:id="rootPane" prefHeight="301.0" prefWidth="528.0" stylesheets="@../main/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="im.codechat.client.view.components.ChatComponent">
+<AnchorPane fx:id="rootPane" prefHeight="301.0" prefWidth="528.0" stylesheets="@../main/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="im.codechat.client.view.components.ChatComponent">
     <VBox fillWidth="true" prefHeight="186.0" prefWidth="488.0" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
         <BorderPane>
             <left>
@@ -46,7 +46,6 @@
                 <RowConstraints minHeight="10.0" />
             </rowConstraints>
             <children>
-
                 <Label styleClass="chat-bubble-inbound" GridPane.halignment="LEFT" GridPane.rowIndex="0">
                     Hello, can I speak offerTo you german colleague ?
                 </Label>
@@ -65,4 +64,4 @@
         </GridPane>
         <TextArea fx:id="outboundMessageText" maxHeight="50" minHeight="50" prefHeight="50" />
     </VBox>
-</ChatPane>
+</AnchorPane>

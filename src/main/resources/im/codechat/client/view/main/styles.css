@@ -249,10 +249,9 @@
 .chat-action-button:hover{-fx-background-color: #9e9fa9;}
 .chat-action-button:pressed{-fx-background-color: #4a4a4f;}
 
-.accent-button:hover{-fx-background-color: #419fee}
-.accent-button:pressed{-fx-background-color: #2a6597}
-.accent-button:disabled{-fx-background-color: #626061
-}
+.accent-button:hover{-fx-background-color: #419fee;}
+.accent-button:pressed{-fx-background-color: #2a6597;}
+.accent-button:disabled{-fx-background-color: #626061;}
 
 #loggedInUserName{
     -fx-font-size: 14;

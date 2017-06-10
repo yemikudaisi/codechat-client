@@ -29,7 +29,7 @@ public class CodeChatManager implements ICodeChatManager {
     // Only necessary for Hosts
     private HashMap<String, String> sessionRootPaths;
 
-    public CodeChatManager(){
+    private CodeChatManager(){
         pendingGuestSessionContainer = new ArrayList<>();
         approvedGuestSessionContainer = new ArrayList<>();
         approvedHostSessionContainer = new ArrayList<>();
@@ -128,7 +128,7 @@ public class CodeChatManager implements ICodeChatManager {
                    findSession(session.getKey(), CodeChatSessionContainers.APPROVED_HOSTS);
                    throw new DuplicateSessionException();
                } catch (SessionNotFoundException e) {
-                   getPendingGuestSessionContainer().add(session);
+                   getApprovedHostSessionContainer().add(session);
                }
                break;
            case APPROVED_GUESTS:
@@ -136,7 +136,7 @@ public class CodeChatManager implements ICodeChatManager {
                    findSession(session.getKey(), CodeChatSessionContainers.APPROVED_GUESTS);
                    throw new DuplicateSessionException();
                } catch (SessionNotFoundException e) {
-                   getPendingGuestSessionContainer().add(session);
+                   getApprovedGuestSessionContainer().add(session);
                }
                break;
        }

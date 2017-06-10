@@ -37,19 +37,15 @@ public class CodeChatTab extends Tab {
     MenuItem saveFileMenuItem;
     MenuItem closeFileMenuItem;
 
-
-    public CodeChatTab(String title){
-        super(title);
-        codeArea = new JavaCodeArea();
-        initializeUI();
-    }
-
     public CodeChatTab(CodeChatSession session){
-        this(session, CodeChatState.MASTER);
+        this("New CodeChatTab",session, CodeChatState.MASTER);
     }
 
-    public CodeChatTab(CodeChatSession session, CodeChatState state){
+    public CodeChatTab(String title, CodeChatSession session, CodeChatState state){
+        super(title);
         this.session = session;
+        this.state = state;
+        codeArea = new JavaCodeArea();
         initializeUI();
     }
 
@@ -83,13 +79,14 @@ public class CodeChatTab extends Tab {
     private void initializeFileExplorer() {
 
         TreeItem<CodeChatFile> root = new TreeItem<CodeChatFile>(new CodeChatFile("/"));
-        fileExplorer = new TreeView<CodeChatFile>(root);
+        root.setExpanded(true);
+        fileExplorer = new TreeView<>(root);
         fileExplorer.setPrefWidth(250);
         VBox.setVgrow(fileExplorer, Priority.ALWAYS);
 
-        TreeItem<CodeChatFile> a = new TreeItem<CodeChatFile>(new CodeChatFile("Main.java"));
-        TreeItem<CodeChatFile> b = new TreeItem<CodeChatFile>(new CodeChatFile("Other.java"));
-        TreeItem<CodeChatFile> c = new TreeItem<CodeChatFile>(new CodeChatFile("CodeInsane.java"));
+        TreeItem<CodeChatFile> a = new TreeItem<>(new CodeChatFile("Main.java"));
+        TreeItem<CodeChatFile> b = new TreeItem<>(new CodeChatFile("Other.java"));
+        TreeItem<CodeChatFile> c = new TreeItem<>(new CodeChatFile("CodeInsane.java"));
         ArrayList<TreeItem<CodeChatFile>> aL = new ArrayList<>();
         aL.add(a);
         aL.add(b);

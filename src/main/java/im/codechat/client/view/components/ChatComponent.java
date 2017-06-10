@@ -11,10 +11,6 @@ import im.codechat.client.core.xmpp.message.MessageQueueItem;
 import im.codechat.client.core.ui.*;
 import im.codechat.client.core.ui.control.ChatEntryContainer;
 import im.codechat.client.core.ui.control.ChatPane;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -247,7 +243,7 @@ public class ChatComponent extends BaseComponentController {
 
         chatTab.setContent(chatContent);
         tabPane.getTabs().add(chatTab);
-        tabPane.getTabs().add(new CodeChatTab("Project - CodeChat"));
+        tabPane.getTabs().add(new CodeChatTab(null));
 
         AnchorPane.setTopAnchor(tabPane,0.0);
         AnchorPane.setRightAnchor(tabPane,0.0);

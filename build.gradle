@@ -17,8 +17,9 @@ buildscript {
     }
 }
 
-// Apply the java-library plugin to add support for Java Library
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'javafx-gradle-plugin'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -26,7 +27,7 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     mavenLocal()
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    //maven { url "https://jitpack.io" }
     //jcenter()
 }
 
@@ -36,6 +37,12 @@ sourceSets {
         resources {
             srcDirs = ["src/main/resources"]
             includes = ["**/*.fxml", "**/*.css", "**/*.ttf"]
+        }
+    }
+
+    test{
+        java {
+            srcDirs = ["src/test/java"]
         }
     }
 }
@@ -52,15 +59,11 @@ dependencies {
     compile 'rocks.xmpp:xmpp-core-client:0.7.4'
     compile 'rocks.xmpp:xmpp-extensions-client:0.7.4'
     compile 'de.jensd:fontawesomefx:8.9'
-    compile 'com.github.TomasMikula:RichTextFX:v0.7-M5'
-    compile 'controlsfx:controlsfx:8.40.12'
-    //compile 'org.fxmisc.richtext:richtextfx:0.6.10'
+    compile 'org.controlsfx:controlsfx:8.40.12'
+    compile 'org.fxmisc.richtext:richtextfx:0.7-M5'
+    testCompile 'junit:junit:4.12'
     //compile 'org.fxmisc.flowless:flowless:0.5.2'
 }
-
-
-apply plugin: 'javafx-gradle-plugin'
-
 
 jfx {
     // minimal requirement for jfxJar-task
@@ -70,3 +73,6 @@ jfx {
     vendor = 'Yemi Kudaisi'
 }
 
+//task run{
+    //jfxRun.execute()
+//}
