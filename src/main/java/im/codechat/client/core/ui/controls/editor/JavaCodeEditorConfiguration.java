@@ -1,28 +1,22 @@
-package im.codechat.client.core.ui.control;
+package im.codechat.client.core.ui.controls.editor;
 
 import javafx.concurrent.Task;
-import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The description for JavaCodeArea class
+ * The description for JavaCodeEditorConfiguration class
  *
  * @author Yemi Kudaisi
  * @version 1.0
- * @since 6/4/2017
+ * @since 6/10/2017
  */
-public class JavaCodeArea extends CodeArea {
+public class JavaCodeEditorConfiguration extends CodeEditorConfiguration{
 
     private static final String[] KEYWORDS = new String[] {
             "abstract", "assert", "boolean", "break", "byte",
@@ -55,68 +49,58 @@ public class JavaCodeArea extends CodeArea {
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
     );
 
-    private static final String sampleCode = String.join("\n", new String[] {
-            "package com.example;",
-            "",
-            "import java.util.*;",
-            "",
-            "public class Foo extends Bar implements Baz {",
-            "",
-            "    /*",
-            "     * multi-line comment",
-            "     */",
-            "    public static void main(String[] args) {",
-            "        // single-line comment",
-            "        for(String arg: args) {",
-            "            if(arg.length() != 0)",
-            "                System.out.println(arg);",
-            "            else",
-            "                System.err.println(\"Warning: empty string as argument\");",
-            "        }",
-            "    }",
-            "",
-            "}"
-    });
-
-    private ExecutorService executor;
-
-    public JavaCodeArea() {
-        super();
-        executor = Executors.newSingleThreadExecutor();
-        this.setParagraphGraphicFactory(LineNumberFactory.get(this));
-        this.richChanges()
-                .filter(ch -> !ch.getInserted().equals(ch.getRemoved())) // XXX
-                .successionEnds(Duration.ofMillis(500))
-                .supplyTask(this::computeHighlightingAsync)
-                .awaitLatest(this.richChanges())
-                .filterMap(t -> {
-                    if(t.isSuccess()) {
-                        return Optional.of(t.get());
-                    } else {
-                        t.getFailure().printStackTrace();
-                        return Optional.empty();
-                    }
-                })
-                .subscribe(this::applyHighlighting);
-        this.replaceText(0, 0, sampleCode);
-        //this.getStylesheets().add(this.getClass().getResource("java-keywords.css").toExternalForm());
+    public JavaCodeEditorConfiguration(){
     }
 
-
-    private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
-        String text = this.getText();
+    public Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
+        String text = getCodeEditor().getText();
         Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
             @Override
             protected StyleSpans<Collection<String>> call() throws Exception {
                 return computeHighlighting(text);
             }
         };
-        executor.execute(task);
+        getExecutor().execute(task);
         return task;
     }
 
-    private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
-        this.setStyleSpans(0, highlighting);
+    public void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
+
+        getCodeEditor().setStyleSpans(0, highlighting);
+    }
+
+    @Override
+    public String getCss() {
+        return ".keyword {\n" +
+                "    -fx-fill: purple;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "}\n" +
+                ".semicolon {\n" +
+                "    -fx-font-weight: bold;\n" +
+                "}\n" +
+                ".paren {\n" +
+                "    -fx-fill: firebrick;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "}\n" +
+                ".bracket {\n" +
+                "    -fx-fill: darkgreen;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "}\n" +
+                ".brace {\n" +
+                "    -fx-fill: teal;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "}\n" +
+                ".string {\n" +
+                "    -fx-fill: blue;\n" +
+                "}\n" +
+                "\n" +
+                ".comment {\n" +
+                "\t-fx-fill: cadetblue;\n" +
+                "}\n" +
+                "\n" +
+                ".paragraph-box:has-caret {\n" +
+                "    -fx-background-color: #f2f9fc;\n" +
+                "}\n";
     }
 
     public static StyleSpans<Collection<String>> computeHighlighting(String text) {

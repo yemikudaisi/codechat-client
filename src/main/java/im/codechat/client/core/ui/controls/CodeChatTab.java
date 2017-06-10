@@ -1,6 +1,9 @@
-package im.codechat.client.core.ui.control;
+package im.codechat.client.core.ui.controls;
 
 
+import im.codechat.client.core.ui.controls.editor.CodeEditor;
+import im.codechat.client.core.ui.controls.editor.CodeEditorConfiguration;
+import im.codechat.client.core.ui.controls.editor.JavaCodeEditorConfiguration;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatFile;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatSession;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatState;
@@ -26,7 +29,8 @@ public class CodeChatTab extends Tab {
 
     CodeChatSession session;
     CodeChatState state;
-    JavaCodeArea codeArea;
+    //JavaCodeArea codeArea;
+    CodeEditor editor;
     TreeView<CodeChatFile> fileExplorer;
 
     MenuBar menuBar;
@@ -37,6 +41,29 @@ public class CodeChatTab extends Tab {
     MenuItem saveFileMenuItem;
     MenuItem closeFileMenuItem;
 
+    private static final String sampleCode = String.join("\n", new String[] {
+            "package com.example;",
+            "",
+            "import java.util.*;",
+            "",
+            "public class Foo extends Bar implements Baz {",
+            "",
+            "    /*",
+            "     * multi-line comment",
+            "     */",
+            "    public static void main(String[] args) {",
+            "        // single-line comment",
+            "        for(String arg: args) {",
+            "            if(arg.length() != 0)",
+            "                System.out.println(arg);",
+            "            else",
+            "                System.err.println(\"Warning: empty string as argument\");",
+            "        }",
+            "    }",
+            "",
+            "}"
+    });
+
     public CodeChatTab(CodeChatSession session){
         this("New CodeChatTab",session, CodeChatState.MASTER);
     }
@@ -45,7 +72,9 @@ public class CodeChatTab extends Tab {
         super(title);
         this.session = session;
         this.state = state;
-        codeArea = new JavaCodeArea();
+        CodeEditorConfiguration cfg = new JavaCodeEditorConfiguration();
+        editor = new CodeEditor(cfg, sampleCode);
+        //codeArea = new JavaCodeArea();
         initializeUI();
     }
 
@@ -107,9 +136,12 @@ public class CodeChatTab extends Tab {
         scroll.setContent(fileExplorer);
 
 
-        VBox.setVgrow(codeArea, Priority.ALWAYS);
-        HBox.setHgrow(codeArea, Priority.ALWAYS);
-        pane.setCenter(new VirtualizedScrollPane<>(codeArea));
+        //VBox.setVgrow(codeArea, Priority.ALWAYS);
+        //HBox.setHgrow(codeArea, Priority.ALWAYS);
+        //pane.setCenter(new VirtualizedScrollPane<>(codeArea));VBox.setVgrow(codeArea, Priority.ALWAYS);
+        VBox.setVgrow(editor, Priority.ALWAYS);
+        HBox.setHgrow(editor, Priority.ALWAYS);
+        pane.setCenter(new VirtualizedScrollPane<>(editor));
 
         this.setContent(pane);
     }

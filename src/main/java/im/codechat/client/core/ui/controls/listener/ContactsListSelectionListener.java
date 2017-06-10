@@ -1,8 +1,8 @@
-package im.codechat.client.core.ui.control.listener;
+package im.codechat.client.core.ui.controls.listener;
 
 import im.codechat.client.core.application.WorkspaceManager;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
-import im.codechat.client.core.ui.control.ChatPane;
+import im.codechat.client.core.ui.controls.ChatPane;
 import im.codechat.client.view.components.ChatComponent;
 import im.codechat.client.view.main.MainViewController;
 import javafx.beans.value.ChangeListener;

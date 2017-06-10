@@ -10,7 +10,7 @@ import im.codechat.client.core.xmpp.extensions.codechat.CodeChatSessionApprovals
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatSessionContainers;
 import im.codechat.client.core.xmpp.extensions.codechat.exceptions.SessionNotFoundException;
 import im.codechat.client.core.exception.ComponentViewNotFoundException;
-import im.codechat.client.core.ui.control.ChatPane;
+import im.codechat.client.core.ui.controls.ChatPane;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;

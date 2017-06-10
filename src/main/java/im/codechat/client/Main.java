@@ -1,22 +1,12 @@
 package im.codechat.client;
 
-import im.codechat.client.core.ui.control.JavaCodeArea;
 import im.codechat.client.view.login.LoginViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.fxmisc.flowless.VirtualizedScrollPane;
-import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
-import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main extends Application {
@@ -92,7 +82,7 @@ public class Main extends Application {
         codeArea.replaceText(0, 0, sampleCode);
 
         Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-        //scene.getStylesheets().add(this.getClass().getResource("/core/ui/control/java-keywords.css").toExternalForm());
+        //scene.getStylesheets().add(this.getClass().getResource("/core/ui/controls/java-keywords.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Java Keywords Demo");
         primaryStage.show();

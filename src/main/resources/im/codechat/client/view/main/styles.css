@@ -70,7 +70,7 @@
     -fx-background-color: #cccccc;
 }
 
-/* this part is from  default stiles fxrt.jar!/com/sun/javafx/scene/control/skin/caspian/caspian.css */
+/* this part is from  default stiles fxrt.jar!/com/sun/javafx/scene/controls/skin/caspian/caspian.css */
 .combo-box:hover{
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-background-radius: 5, 5, 4, 3;
@@ -297,36 +297,6 @@
     -fx-faint-focus-color: transparent;
 }
 
-.keyword {
-    -fx-fill: purple;
-    -fx-font-weight: bold;
-}
-.semicolon {
-    -fx-font-weight: bold;
-}
-.paren {
-    -fx-fill: firebrick;
-    -fx-font-weight: bold;
-}
-.bracket {
-    -fx-fill: darkgreen;
-    -fx-font-weight: bold;
-}
-.brace {
-    -fx-fill: teal;
-    -fx-font-weight: bold;
-}
-.string {
-    -fx-fill: blue;
-}
-
-.comment {
-    -fx-fill: cadetblue;
-}
-
-.paragraph-box:has-caret {
-    -fx-background-color: #f2f9fc;
-}
 
 
 

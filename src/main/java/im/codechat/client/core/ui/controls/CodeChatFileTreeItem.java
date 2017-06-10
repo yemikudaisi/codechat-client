@@ -1,4 +1,4 @@
-package im.codechat.client.core.ui.control;
+package im.codechat.client.core.ui.controls;
 
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatFile;
 import javafx.scene.control.TreeItem;

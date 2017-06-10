@@ -1,4 +1,4 @@
-package im.codechat.client.core.ui.control;
+package im.codechat.client.core.ui.controls;
 
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
