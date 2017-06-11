@@ -18,7 +18,7 @@ import java.util.List;
  * @since 5/31/2017
  */
 public class CodeChatManager implements ICodeChatManager {
-    private static CodeChatManager instance;
+    private static CodeChatManager instance = null;
     private static final Object LOCK = new Object();
 
     private List<CodeChatSession> pendingGuestSessionContainer;
@@ -198,7 +198,7 @@ public class CodeChatManager implements ICodeChatManager {
         return approvedHostSessionContainer;
     }
 
-    public static CodeChatManager getInstance() {
+    public static synchronized CodeChatManager getInstance() {
         // Synchronize on LOCK to ensure that we don't end up creating
         // two singletons.
         synchronized (LOCK){

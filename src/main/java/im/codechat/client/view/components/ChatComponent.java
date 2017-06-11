@@ -17,6 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import rocks.xmpp.core.stanza.model.Message;
 import rocks.xmpp.extensions.chatstates.model.ChatState;
 
@@ -52,6 +54,7 @@ public class ChatComponent extends BaseComponentController {
     Button btnShowContactHistory;
     Button btnEncryptConversation;
     List<MessageQueueItem> messageQueueItems;
+    final static Logger logger = LogManager.getRootLogger();
 
     private String jid;
 
@@ -75,7 +78,6 @@ public class ChatComponent extends BaseComponentController {
         this.jid = jid;
         chatPane.setJid(jid);
         chatContactLabel.setText(jid);
-
     }
 
     public void sendChat(){
@@ -97,6 +99,11 @@ public class ChatComponent extends BaseComponentController {
             String rootPath = selectedDirectory.getCanonicalPath();
             msg.addExtension(new CodeChatOffer(selectedDirectory.getName(),key));
             CodeChatManager.getInstance().getSessionRootPaths().put(key, rootPath);
+            File[] directories = selectedDirectory.listFiles(File::isDirectory);
+
+            for (File file: directories) {
+                logger.debug(file.getCanonicalPath() + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

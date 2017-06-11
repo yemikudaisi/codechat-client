@@ -4,6 +4,7 @@ package im.codechat.client.core.ui.controls;
 import im.codechat.client.core.ui.controls.editor.CodeEditor;
 import im.codechat.client.core.ui.controls.editor.CodeEditorConfiguration;
 import im.codechat.client.core.ui.controls.editor.JavaCodeEditorConfiguration;
+import im.codechat.client.core.ui.controls.editor.XmlCodeEditorConfiguration;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatFile;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatSession;
 import im.codechat.client.core.xmpp.extensions.codechat.CodeChatState;
@@ -16,6 +17,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -42,26 +44,38 @@ public class CodeChatTab extends Tab {
     MenuItem closeFileMenuItem;
 
     private static final String sampleCode = String.join("\n", new String[] {
-            "package com.example;",
-            "",
-            "import java.util.*;",
-            "",
-            "public class Foo extends Bar implements Baz {",
-            "",
-            "    /*",
-            "     * multi-line comment",
-            "     */",
-            "    public static void main(String[] args) {",
-            "        // single-line comment",
-            "        for(String arg: args) {",
-            "            if(arg.length() != 0)",
-            "                System.out.println(arg);",
-            "            else",
-            "                System.err.println(\"Warning: empty string as argument\");",
-            "        }",
-            "    }",
-            "",
-            "}"
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
+            "<!-- Sample XML -->",
+            "< orders >",
+            "	<Order number=\"1\" table=\"center\">",
+            "		<items>",
+            "			<Item>",
+            "				<type>ESPRESSO</type>",
+            "				<shots>2</shots>",
+            "				<iced>false</iced>",
+            "				<orderNumber>1</orderNumber>",
+            "			</Item>",
+            "			<Item>",
+            "				<type>CAPPUCCINO</type>",
+            "				<shots>1</shots>",
+            "				<iced>false</iced>",
+            "				<orderNumber>1</orderNumber>",
+            "			</Item>",
+            "			<Item>",
+            "			<type>LATTE</type>",
+            "				<shots>2</shots>",
+            "				<iced>false</iced>",
+            "				<orderNumber>1</orderNumber>",
+            "			</Item>",
+            "			<Item>",
+            "				<type>MOCHA</type>",
+            "				<shots>3</shots>",
+            "				<iced>true</iced>",
+            "				<orderNumber>1</orderNumber>",
+            "			</Item>",
+            "		</items>",
+            "	</Order>",
+            "</orders>"
     });
 
     public CodeChatTab(CodeChatSession session){
@@ -72,7 +86,7 @@ public class CodeChatTab extends Tab {
         super(title);
         this.session = session;
         this.state = state;
-        CodeEditorConfiguration cfg = new JavaCodeEditorConfiguration();
+        CodeEditorConfiguration cfg = new XmlCodeEditorConfiguration();
         editor = new CodeEditor(cfg, sampleCode);
         //codeArea = new JavaCodeArea();
         initializeUI();
@@ -110,9 +124,9 @@ public class CodeChatTab extends Tab {
         TreeItem<CodeChatFile> root = new TreeItem<CodeChatFile>(new CodeChatFile("/"));
         root.setExpanded(true);
         fileExplorer = new TreeView<>(root);
-        fileExplorer.setPrefWidth(250);
+        fileExplorer.setPrefWidth(20);
         VBox.setVgrow(fileExplorer, Priority.ALWAYS);
-
+        HBox.setHgrow(fileExplorer, Priority.ALWAYS);
         TreeItem<CodeChatFile> a = new TreeItem<>(new CodeChatFile("Main.java"));
         TreeItem<CodeChatFile> b = new TreeItem<>(new CodeChatFile("Other.java"));
         TreeItem<CodeChatFile> c = new TreeItem<>(new CodeChatFile("CodeInsane.java"));

@@ -44,7 +44,7 @@ public class WorkspaceManager {
             chatComponents.replace(jid, chatComponents.get(jid), component);
     }
 
-    public static WorkspaceManager getInstance() {
+    public static synchronized WorkspaceManager getInstance() {
         // Synchronize on LOCK to ensure that we don't end up creating
         // two singletons.
         synchronized (LOCK){

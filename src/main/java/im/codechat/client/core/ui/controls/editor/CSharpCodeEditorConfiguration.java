@@ -2,33 +2,32 @@ package im.codechat.client.core.ui.controls.editor;
 
 import javafx.concurrent.Task;
 import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The description for JavaCodeEditorConfiguration class
+ * The description for CSharpCodeEditorConfiguration class
  *
  * @author Yemi Kudaisi
  * @version 1.0
  * @since 6/10/2017
  */
-public class JavaCodeEditorConfiguration extends CodeEditorConfiguration{
+public class CSharpCodeEditorConfiguration extends CodeEditorConfiguration{
 
     private static final String[] KEYWORDS = new String[] {
-            "abstract", "assert", "boolean", "break", "byte",
-            "case", "catch", "char", "class", "const",
-            "continue", "default", "do", "double", "else",
-            "enum", "extends", "final", "finally", "float",
-            "for", "goto", "if", "implements", "import",
-            "instanceof", "int", "interface", "long", "native",
-            "new", "package", "private", "protected", "public",
-            "return", "short", "static", "strictfp", "super",
-            "switch", "synchronized", "this", "throw", "throws",
-            "transient", "try", "void", "volatile", "while"
+            "abstract","as","base","bool","break","byte","case","catch","char",
+            "checked","class","const","continue","decimal","default","delegate","do",
+            "double","else","enum","event","explicit","extern","false","finally",
+            "fixed","float","for","foreach","goto","if","implicit","in","in","int",
+            "interface","internal","is","lock","long","namespace","new","null","object",
+            "operator","out","out","override","params","private","protected","public",
+            "readonly","ref","return","sbyte","sealed","short","sizeof","stackalloc",
+            "static","string","struct","switch","this","throw","true","try","typeof",
+            "uint","ulong","unchecked","unsafe","ushort","using","using static","void",
+            "volatile","while","add","alias","ascending","async","await","descending",
+            "dynamic","from","get","global","group","into","join","let","orderby",
+            "partial","remove","select","set","value","var","when","yield",
     };
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
@@ -49,15 +48,13 @@ public class JavaCodeEditorConfiguration extends CodeEditorConfiguration{
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
     );
 
-    public JavaCodeEditorConfiguration(){
-    }
 
     public Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
         String text = getCodeEditor().getText();
         Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
             @Override
             protected StyleSpans<Collection<String>> call() throws Exception {
-                return computeHighlighting(text);
+                return JavaCodeEditorConfiguration.computeHighlighting(text);
             }
         };
         getExecutor().execute(task);
@@ -71,7 +68,7 @@ public class JavaCodeEditorConfiguration extends CodeEditorConfiguration{
     @Override
     public String getCss() {
         return ".keyword {\n" +
-                "    -fx-fill: purple;\n" +
+                "    -fx-fill: #3400FF;\n" +
                 "    -fx-font-weight: bold;\n" +
                 "}\n" +
                 ".semicolon {\n" +
@@ -90,38 +87,15 @@ public class JavaCodeEditorConfiguration extends CodeEditorConfiguration{
                 "    -fx-font-weight: bold;\n" +
                 "}\n" +
                 ".string {\n" +
-                "    -fx-fill: blue;\n" +
+                "    -fx-fill: #A31515;\n" +
                 "}\n" +
                 "\n" +
                 ".comment {\n" +
-                "\t-fx-fill: cadetblue;\n" +
+                "\t-fx-fill: #638000;\n" +
                 "}\n" +
                 "\n" +
                 ".paragraph-box:has-caret {\n" +
                 "    -fx-background-color: #f2f9fc;\n" +
-                "}\n";
-    }
-
-    public static StyleSpans<Collection<String>> computeHighlighting(String text) {
-        Matcher matcher = PATTERN.matcher(text);
-        int lastKwEnd = 0;
-        StyleSpansBuilder<Collection<String>> spansBuilder
-                = new StyleSpansBuilder<>();
-        while(matcher.find()) {
-            String styleClass =
-                    matcher.group("KEYWORD") != null ? "keyword" :
-                            matcher.group("PAREN") != null ? "paren" :
-                                    matcher.group("BRACE") != null ? "brace" :
-                                            matcher.group("BRACKET") != null ? "bracket" :
-                                                    matcher.group("SEMICOLON") != null ? "semicolon" :
-                                                            matcher.group("STRING") != null ? "string" :
-                                                                    matcher.group("COMMENT") != null ? "comment" :
-                                                                            null; /* never happens */ assert styleClass != null;
-            spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-            lastKwEnd = matcher.end();
-        }
-        spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
-        return spansBuilder.create();
+                "}";
     }
 }
